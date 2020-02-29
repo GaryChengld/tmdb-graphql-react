@@ -1,13 +1,16 @@
 import React from 'react';
-import './App.css';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { BrowserRouter as Router } from 'react-router-dom';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
+import theme from './theme';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src="./powered-by-tmdb.png" />
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <Router />
+    </ThemeProvider>
   );
 }
 
