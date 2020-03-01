@@ -1,9 +1,10 @@
 import { red, blue, lightBlue, yellow, green } from '@material-ui/core/colors';
+import { PaletteType } from '@material-ui/core';
 const white = '#FFF';
 const black = '#000';
 
-export default {
-  type: "dark",
+const palleteOptions = {
+  type: 'dark' as PaletteType,
   common: {
     black,
     white,
@@ -63,3 +64,4 @@ export default {
   pewterBlue: 'rgba(141, 169, 196, 1)',
   isabelline: 'rgba(238, 244, 237, 1)',
 };
+export default palleteOptions;
