@@ -52,8 +52,8 @@ const palleteOptions = {
     contrastText: white,
   },
   background: {
-    paper: 'rgb(45, 45, 45)',
-    default: 'rgb(26, 26, 26)',
+    paper: 'rgb(75, 75, 75)',
+    default: 'rgb(54, 54, 54)',
     dark: 'rgb(26, 26, 26)',
   },
   border: '#DFE3E8',

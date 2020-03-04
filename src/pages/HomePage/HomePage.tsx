@@ -1,14 +1,12 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
+import { Container } from '@material-ui/core/';
 
 class HomePage extends Component {
   render() {
     return (
-      <>
-        <Button variant="contained" color="primary">
-          Hello World
-        </Button>
-      </>
+      <Container maxWidth="lg">
+        Main Page
+      </Container>
     );
   }
 }
