@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { Container } from '@material-ui/core/';
+import { Box, Container } from '@material-ui/core/';
+import NowPlaying from './NowPlaying';
 
 class HomePage extends Component {
   render() {
     return (
       <Container maxWidth="lg">
-        Main Page
+        <Box height={12} />
+        <NowPlaying />
       </Container>
     );
   }
