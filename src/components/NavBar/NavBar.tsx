@@ -1,6 +1,6 @@
 import React from 'react';
 import { Theme, makeStyles } from '@material-ui/core/styles';
-import { Container, AppBar, Toolbar, Typography, IconButton } from '@material-ui/core';
+import { AppBar, Toolbar, Typography, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -20,16 +20,14 @@ export default function NavBar() {
   return (
     <div className={classes.root}>
       <AppBar position="static" color="default">
-        <Container maxWidth="lg">
-          <Toolbar>
-            <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h6" className={classes.title}>
-              Movie Discover
-            </Typography>
-          </Toolbar>
-        </Container>
+        <Toolbar>
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" className={classes.title}>
+            Movie Discover
+          </Typography>
+        </Toolbar>
       </AppBar>
     </div>
   );
