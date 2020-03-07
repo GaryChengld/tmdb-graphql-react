@@ -1,19 +1,16 @@
 import React from 'react';
-import { Grid, Typography, Card, CardActions, CardContent, CardMedia, Button } from '@material-ui/core';
+import { Grid, Typography, Card, CardActions, CardContent, CardMedia, Button, Divider } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
+import { Rating } from '@material-ui/lab';
 
 interface MovieCardsProps {
   movies: any[];
 }
 
 const useStyles = makeStyles(theme => ({
-  details: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
   cardGrid: {
-    paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(4),
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
   },
   card: {
     height: '100%',
@@ -21,10 +18,11 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
   },
   cardMedia: {
-    paddingTop: '56.25%', // 16:9
+    paddingTop: theme.spacing(0),
   },
   cardContent: {
     flexGrow: 1,
+    paddingBottom: 0,
   },
 }));
 
@@ -32,19 +30,20 @@ export default function MovieCards(props: MovieCardsProps) {
   const classes = useStyles();
   return (
     <>
-      <Grid container spacing={4} justify="center">
+      <Grid container spacing={2} justify="center">
         {props.movies.map((movie: any) => (
-          <Grid item key={movie.id} xs={12} sm={12} md={6} lg={4}>
+          <Grid item key={movie.id} xs={12} md={6} lg={3}>
             <Card className={classes.card}>
-              <CardMedia className={classes.cardMedia} image={movie.backdropPath} title={movie.title} />
+              <CardMedia className={classes.cardMedia} component="img" image={movie.backdropPath} title={movie.title} />
               <CardContent className={classes.cardContent}>
-                <Typography gutterBottom variant="h5" component="h2">
+                <Rating name="customized-10" value={movie.voteAverage / 2} readOnly />
+                <Typography gutterBottom variant="subtitle1" component="h2">
                   {movie.title}
                 </Typography>
-                <Typography color="textSecondary">{movie.overview}</Typography>
               </CardContent>
+              <Divider light />
               <CardActions>
-                <Button size="small" color="primary">
+                <Button size="small" color="default" href={`/movie/${movie.id}`}>
                   More info
                 </Button>
               </CardActions>

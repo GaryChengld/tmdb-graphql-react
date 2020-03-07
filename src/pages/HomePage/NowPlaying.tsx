@@ -13,7 +13,7 @@ const NOW_PLAYING_QUERY = gql`
         title
         overview
         releaseDate
-        posterPath(size: L)
+        posterPath(size: M)
         backdropPath(size: M)
         voteAverage
       }
@@ -22,7 +22,7 @@ const NOW_PLAYING_QUERY = gql`
 `;
 
 function renderMovies(data: any) {
-  const movies = data['nowPlayingMovies'].results.slice(0, 6);
+  const movies = data['nowPlayingMovies'].results.slice(0, 4);
   return (
     <>
       <MovieCards movies={movies} />

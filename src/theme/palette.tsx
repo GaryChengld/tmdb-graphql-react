@@ -1,5 +1,6 @@
 import { red, blue, lightBlue, yellow, green } from '@material-ui/core/colors';
 import { PaletteType } from '@material-ui/core';
+
 const white = '#FFF';
 const black = '#000';
 
@@ -8,10 +9,6 @@ const palleteOptions = {
   common: {
     black,
     white,
-    commonBackground: 'rgb(45, 45, 45)',
-    contrastText: white,
-    neutral: '#E4E7EB',
-    muted: '#9EA0A4',
   },
   default: {
     light: 'rgba(41, 150, 243, .1)',
@@ -53,8 +50,7 @@ const palleteOptions = {
   },
   background: {
     paper: 'rgb(75, 75, 75)',
-    default: 'rgb(54, 54, 54)',
-    dark: 'rgb(26, 26, 26)',
+    default: 'rgb(45, 45, 45)',
   },
   border: '#DFE3E8',
   divider: '#DFE3E8',
