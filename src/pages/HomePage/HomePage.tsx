@@ -1,16 +1,12 @@
-import React, { Component } from 'react';
-import { Box, Container } from '@material-ui/core/';
+import React from 'react';
+import { Container, Divider } from '@material-ui/core/';
 import NowPlaying from './NowPlaying';
 
-class HomePage extends Component {
-  render() {
-    return (
-      <Container maxWidth="lg">
-        <Box height={12} />
-        <NowPlaying />
-      </Container>
-    );
-  }
+export default function HomePage() {
+  return (
+    <Container maxWidth="lg">
+      <NowPlaying />
+      <Divider light />
+    </Container>
+  );
 }
-
-export default HomePage;

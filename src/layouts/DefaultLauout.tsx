@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavBar } from '../components';
+import { NavBar, Footer } from '../components';
 import Routes from '../Routes';
 
 export default class Page extends React.Component {
@@ -8,6 +8,7 @@ export default class Page extends React.Component {
       <>
         <NavBar />
         <Routes />
+        <Footer />
       </>
     );
   }

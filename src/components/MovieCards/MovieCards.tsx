@@ -36,7 +36,7 @@ export default function MovieCards(props: MovieCardsProps) {
             <Card className={classes.card}>
               <CardMedia className={classes.cardMedia} component="img" image={movie.backdropPath} title={movie.title} />
               <CardContent className={classes.cardContent}>
-                <Rating name="customized-10" value={movie.voteAverage / 2} readOnly />
+                <Rating name="customized-10" value={movie.voteAverage / 2} precision={0.5} readOnly />
                 <Typography gutterBottom variant="subtitle1" component="h2">
                   {movie.title}
                 </Typography>

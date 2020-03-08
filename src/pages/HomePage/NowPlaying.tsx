@@ -1,9 +1,17 @@
 import React from 'react';
-import { Box, Typography } from '@material-ui/core';
+import { Box, Grid, Typography, Link } from '@material-ui/core';
+import { Theme, makeStyles } from '@material-ui/core/styles';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
 import { Loading, MovieCards } from '../../components';
+
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
+}));
 
 const NOW_PLAYING_QUERY = gql`
   {
@@ -31,16 +39,26 @@ function renderMovies(data: any) {
 }
 
 function NowPlaying() {
+  const classes = useStyles();
   const { data, loading } = useQuery(NOW_PLAYING_QUERY);
   return (
-    <>
-      <Typography variant="h5" color="textSecondary">
-        In Theaters
-      </Typography>
+    <div className={classes.root}>
+      <Grid container>
+        <Grid item xs>
+          <Typography variant="h5" color="textSecondary">
+            In Theaters
+          </Typography>
+        </Grid>
+        <Grid item>
+          <Link href="/movie/nowPlaying" variant="body1">
+            View all
+          </Link>
+        </Grid>
+      </Grid>
       <Box height={8} />
       {loading && <Loading />}
       {data && renderMovies(data)}
-    </>
+    </div>
   );
 }
 
