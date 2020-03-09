@@ -1,6 +1,6 @@
 import React from 'react';
 import { Theme, makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, Typography, IconButton } from '@material-ui/core';
+import { AppBar, Toolbar, IconButton, Link } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(0),
   },
   title: {
     flexGrow: 1,
@@ -24,9 +24,10 @@ export default function NavBar() {
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            Movie Discover
-          </Typography>
+          <img src="logo.png" width="16" alt="Movie Discover" />
+          <Link href="/" variant="h6" className={classes.title} color="inherit" underline="none">
+            MovieDiscover
+          </Link>
         </Toolbar>
       </AppBar>
     </div>

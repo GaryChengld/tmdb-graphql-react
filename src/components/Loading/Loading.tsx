@@ -1,15 +1,12 @@
 import React from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import { CircularProgress, Typography } from '@material-ui/core';
+import { makeStyles, createStyles } from '@material-ui/core/styles';
+import { CircularProgress, Box } from '@material-ui/core';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
       display: 'flex',
-      '& > * + *': {
-        marginLeft: theme.spacing(2),
-        marginRight: theme.spacing(2),
-      },
+      justifyContent: 'center',
     },
   }),
 );
@@ -19,8 +16,9 @@ export default function Loading() {
 
   return (
     <div className={classes.root}>
-      <CircularProgress size={32} />
-      <Typography variant="h6">Loading...</Typography>
+      <Box mt={8} mb={8}>
+        <CircularProgress size={40} />
+      </Box>
     </div>
   );
 }

@@ -7,21 +7,21 @@ import { useQuery } from '@apollo/react-hooks';
 import { Loading, MovieCards } from '../../components';
 import useStyles from './styles';
 
-const NOW_PLAYING_QUERY = gql`
+const UPCOMINMG_QUERY = gql`
   {
-    nowPlayingMovies(page: 1, region: "US") {
+    upcomingMovies(page: 1, region: "US") {
       results {
         id
         title
+        releaseDate
         backdropPath(size: M)
-        voteAverage
       }
     }
   }
 `;
 
 function renderMovies(data: any) {
-  const movies = data['nowPlayingMovies'].results.slice(0, 4);
+  const movies = data['upcomingMovies'].results.slice(0, 4);
   return (
     <>
       <MovieCards movies={movies} style="normal" />
@@ -29,19 +29,19 @@ function renderMovies(data: any) {
   );
 }
 
-function NowPlaying() {
+function Upcoming() {
   const classes = useStyles();
-  const { data, loading } = useQuery(NOW_PLAYING_QUERY);
+  const { data, loading } = useQuery(UPCOMINMG_QUERY);
   return (
     <div className={classes.container}>
       <Grid container>
         <Grid item xs>
           <Typography variant="h5" color="textSecondary">
-            In Theaters
+            Coming Soon
           </Typography>
         </Grid>
         <Grid item>
-          <Link variant="body1" component={ReactLink} to="/movie/nowPlaying">
+          <Link variant="body1" component={ReactLink} to="/movie/upcoming">
             View all
           </Link>
         </Grid>
@@ -53,4 +53,4 @@ function NowPlaying() {
   );
 }
 
-export default NowPlaying;
+export default Upcoming;
