@@ -24,7 +24,7 @@ function renderMovies(data: any) {
   const movies = data['upcomingMovies'].results.slice(0, 4);
   return (
     <>
-      <MovieCards movies={movies} style="normal" />
+      <MovieCards movies={movies} type='normal' />
     </>
   );
 }
