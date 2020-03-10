@@ -1,17 +1,16 @@
 import React from 'react';
 import { ThemeProvider } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import DefaultLauout from './layouts/DefaultLauout';
+import { DefaultLayout } from './layouts';
 
 import theme from './theme';
 
-function App() {
+const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <DefaultLauout />
+      <DefaultLayout />
     </ThemeProvider>
   );
-}
-
+};
 export default App;

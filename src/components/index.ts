@@ -1,6 +1,6 @@
-export { default as NavBar } from './NavBar';
-export { default as Footer } from './Footer';
-export { default as Loading } from './Loading';
-export { default as MovieList } from './MovieList';
-export { default as MovieCard } from './MovieCard';
-export { default as SimpleMovieCard } from './SimpleMovieCard';
+export * from './NavBar';
+export * from './Footer';
+export * from './Loading';
+export * from './MovieCards';
+export * from './MovieRating';
+export * from './MovieCarousel';

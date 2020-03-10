@@ -24,6 +24,12 @@ const palleteOptions = {
     dark: lightBlue[700],
     contrastText: white,
   },
+  secondary: {
+    light: yellow[300],
+    main: yellow[500],
+    dark: yellow[700],
+    contrastText: white,
+  },
   success: {
     light: green[300],
     main: green[500],

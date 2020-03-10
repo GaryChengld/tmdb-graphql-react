@@ -2,7 +2,7 @@ import React from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { HomePage, UpcomingMovies, NowPlayingMovies, MovieDetails } from './pages';
 
-function Routes() {
+export default function Routes() {
   return (
     <Switch>
       <Redirect exact from="/" to="/home" />
@@ -13,5 +13,3 @@ function Routes() {
     </Switch>
   );
 }
-
-export default Routes;
