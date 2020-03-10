@@ -4,15 +4,16 @@ import { Link as ReactLink } from 'react-router-dom';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
-import { Loading, MovieCards } from '../../components';
+import { Loading, MovieList } from '../../components';
 import useStyles from './styles';
 
 const UPCOMINMG_QUERY = gql`
-  {
-    upcomingMovies(page: 1, region: "US") {
+  query upcomingMovies($region: String) {
+    upcomingMovies(page: 1, region: $region) {
       results {
         id
         title
+        overview
         releaseDate
         backdropPath(size: M)
       }
@@ -20,18 +21,22 @@ const UPCOMINMG_QUERY = gql`
   }
 `;
 
+const variables = {
+  region: process.env.REACT_APP_REGION,
+};
+
 function renderMovies(data: any) {
-  const movies = data['upcomingMovies'].results.slice(0, 4);
+  const movies = data['upcomingMovies'].results.slice(0, 3);
   return (
     <>
-      <MovieCards movies={movies} type='normal' />
+      <MovieList movies={movies} type="normal" />
     </>
   );
 }
 
 function Upcoming() {
   const classes = useStyles();
-  const { data, loading } = useQuery(UPCOMINMG_QUERY);
+  const { data, loading } = useQuery(UPCOMINMG_QUERY, { variables });
   return (
     <div className={classes.container}>
       <Grid container>

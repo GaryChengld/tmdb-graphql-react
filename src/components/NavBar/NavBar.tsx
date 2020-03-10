@@ -24,7 +24,7 @@ export default function NavBar() {
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
-          <img src="logo.png" width="16" alt="Movie Discover" />
+          <img src="/logo.png" width="16" alt="Movie Discover" />
           <Link href="/" variant="h6" className={classes.title} color="inherit" underline="none">
             MovieDiscover
           </Link>

@@ -4,34 +4,39 @@ import { Link as ReactLink } from 'react-router-dom';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
-import { Loading, MovieCards } from '../../components';
+import { Loading, MovieList } from '../../components';
 import useStyles from './styles';
 
 const NOW_PLAYING_QUERY = gql`
-  {
-    nowPlayingMovies(page: 1, region: "US") {
+  query nowPlayingMovies($region: String) {
+    nowPlayingMovies(page: 1, region: $region) {
       results {
         id
         title
         backdropPath(size: M)
+        posterPath(size: L)
         voteAverage
       }
     }
   }
 `;
 
+const variables = {
+  region: process.env.REACT_APP_REGION,
+};
+
 function renderMovies(data: any) {
-  const movies = data['nowPlayingMovies'].results.slice(0, 4);
+  const movies = data['nowPlayingMovies'].results.slice(0, 6);
   return (
     <>
-      <MovieCards movies={movies} type="normal" />
+      <MovieList movies={movies} type="simple" />
     </>
   );
 }
 
 function NowPlaying() {
   const classes = useStyles();
-  const { data, loading } = useQuery(NOW_PLAYING_QUERY);
+  const { data, loading } = useQuery(NOW_PLAYING_QUERY, { variables });
   return (
     <div className={classes.container}>
       <Grid container>
