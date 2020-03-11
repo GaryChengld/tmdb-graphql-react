@@ -1,9 +1,10 @@
 import React from 'react';
-import { Box, Grid, Typography, Link } from '@material-ui/core';
 import { Link as ReactLink } from 'react-router-dom';
+import { Box, Grid, Typography, Link } from '@material-ui/core';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
+import { Settings } from 'react-slick';
 import { Loading, SimpleMovieCard, MovieCarousel } from '../../components';
 import useStyles from './styles';
 
@@ -24,10 +25,48 @@ const variables = {
   region: process.env.REACT_APP_REGION,
 };
 
+const settings: Settings = {
+  centerMode: false,
+  infinite: true,
+  autoplay: true,
+  speed: 1000,
+  autoplaySpeed: 3000,
+  responsive: [
+    {
+      breakpoint: 1600,
+      settings: {
+        slidesToShow: 6,
+        slidesToScroll: 4,
+      },
+    },
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 3,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
+};
+
 function renderMovies(data: any) {
   const movies = data['nowPlayingMovies'].results.slice(0, 20);
   return (
-    <MovieCarousel>
+    <MovieCarousel settings={settings}>
       {movies.map((movie: any) => (
         <SimpleMovieCard key={movie.id} movie={movie} />
       ))}

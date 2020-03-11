@@ -1,53 +1,47 @@
 import React from 'react';
-import Slider from 'react-slick';
+import Slider, { Settings } from 'react-slick';
+import classnames from 'classnames';
+import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { ArrowBackIos, ArrowForwardIos } from '@material-ui/icons';
 
 import useStyles from './styles';
 
-const settings = {
-  centerMode: false,
-  infinite: true,
-  autoplay: true,
-  speed: 1000,
-  autoplaySpeed: 3000,
-  responsive: [
-    {
-      breakpoint: 1600,
-      settings: {
-        slidesToShow: 6,
-        slidesToScroll: 4,
-      },
-    },
-    {
-      breakpoint: 1024,
-      settings: {
-        slidesToShow: 4,
-        slidesToScroll: 3,
-      },
-    },
-    {
-      breakpoint: 600,
-      settings: {
-        slidesToShow: 2,
-        slidesToScroll: 2,
-      },
-    },
-    {
-      breakpoint: 480,
-      settings: {
-        slidesToShow: 1,
-        slidesToScroll: 1,
-      },
-    },
-  ],
+type CarouselProps = {
+  settings?: Settings;
 };
 
-export const MovieCarousel: React.FC = ({ children }) => {
+function NextArrow(props: any) {
+  const { onClick } = props;
   const classes = useStyles();
   return (
-    <Slider {...settings} className={classes.slider}>
+    <div className={classnames(classes.arrow, 'nextArrow')} onClick={onClick}>
+      <ArrowForwardIos color="inherit" fontSize="large" />
+    </div>
+  );
+}
+
+function PrevArrow(props: any) {
+  const { onClick } = props;
+  const classes = useStyles();
+  return (
+    <div className={classnames(classes.arrow, 'prevArrow')} onClick={onClick}>
+      <ArrowBackIos color="inherit" fontSize="large" />
+    </div>
+  );
+}
+
+export const MovieCarousel: React.FC<CarouselProps> = ({ settings, children }) => {
+  const classes = useStyles();
+  let carouselSetting: Settings = {
+    nextArrow: <NextArrow />,
+    prevArrow: <PrevArrow />,
+  };
+  if (settings) {
+    carouselSetting = { ...carouselSetting, ...settings };
+  }
+  return (
+    <Slider {...carouselSetting} className={classes.slider}>
       {children}
     </Slider>
   );
