@@ -33,17 +33,17 @@ const settings: Settings = {
   autoplaySpeed: 3000,
   responsive: [
     {
-      breakpoint: 1600,
+      breakpoint: 3000,
       settings: {
         slidesToShow: 6,
-        slidesToScroll: 4,
+        slidesToScroll: 5,
       },
     },
     {
       breakpoint: 1024,
       settings: {
         slidesToShow: 4,
-        slidesToScroll: 3,
+        slidesToScroll: 4,
       },
     },
     {

@@ -14,8 +14,10 @@ export default makeStyles(theme => ({
     width: 20,
     display: 'flex',
     alignItems: 'center',
-    color: theme.palette.common.white,
     zIndex: 1,
+    '&:hover': {
+      color: theme.palette.secondary.main,
+    },
     '&.prevArrow': {
       left: 0,
     },
