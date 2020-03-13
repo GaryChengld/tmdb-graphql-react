@@ -64,7 +64,9 @@ const settings: Settings = {
 };
 
 function renderMovies(data: any) {
-  const movies = data['nowPlayingMovies'].results.slice(0, 20);
+  const {
+    nowPlayingMovies: { results: movies },
+  } = data;
   return (
     <MovieCarousel settings={settings}>
       {movies.map((movie: any) => (

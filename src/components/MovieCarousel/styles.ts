@@ -1,9 +1,14 @@
 import { makeStyles } from '@material-ui/core/styles';
 
 export default makeStyles(theme => ({
+  carousel: {
+    height: '100%',
+    margin: 'auto',
+  },
   slider: {
     '& .slick-slide': {
       padding: theme.spacing(1),
+      display: 'flex !important',
     },
   },
   arrow: {

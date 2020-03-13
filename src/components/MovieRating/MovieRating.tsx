@@ -6,5 +6,6 @@ type MovieRateProps = {
 };
 
 export default function MovieRate(props: MovieRateProps) {
-  return <Rating name="movieRate" value={props.rate / 2} precision={0.5} readOnly />;
+  const { rate } = props;
+  return <Rating name="movieRate" value={rate / 2} precision={0.5} readOnly />;
 }

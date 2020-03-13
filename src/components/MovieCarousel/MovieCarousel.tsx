@@ -41,8 +41,10 @@ export const MovieCarousel: React.FC<CarouselProps> = ({ settings, children }) =
     carouselSetting = { ...carouselSetting, ...settings };
   }
   return (
-    <Slider {...carouselSetting} className={classes.slider}>
-      {children}
-    </Slider>
+    <div className={classes.carousel}>
+      <Slider {...carouselSetting} className={classes.slider}>
+        {children}
+      </Slider>
+    </div>
   );
 };

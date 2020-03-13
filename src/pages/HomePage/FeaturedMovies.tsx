@@ -1,7 +1,6 @@
 import React from 'react';
-import { Link as ReactLink } from 'react-router-dom';
-import { Box, Grid, Typography, Link, GridList, GridListTile, GridListTileBar } from '@material-ui/core';
-import { Theme, makeStyles } from '@material-ui/core/styles';
+import { GridList, GridListTile, GridListTileBar } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
@@ -22,14 +21,10 @@ const POPULAR_MOVIES_QUERY = gql`
   }
 `;
 
-const variables = {
-  region: process.env.REACT_APP_REGION,
-};
-
 const useStyles = makeStyles(() => ({
   root: {
     display: 'flex',
-    flexWrap: 'wrap',
+    'white-space': 'nowrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
   },
@@ -51,10 +46,10 @@ function renderMovies(data: any, classes: any) {
           <GridListTileBar title={movies[0].title} />
         </GridListTile>
         <GridListTile key={2} cols={1} rows={2}>
-          <img className={classes.gridList} src={movies[1].posterPath} alt={movies[1].title} />
+          <PosterCard movie={movies[1]} />
         </GridListTile>
         <GridListTile key={3} cols={1} rows={2}>
-          <img className={classes.gridList} src={movies[2].posterPath} alt={movies[2].title} />
+          <PosterCard movie={movies[2]} />
         </GridListTile>
       </GridList>
     </div>
@@ -63,6 +58,9 @@ function renderMovies(data: any, classes: any) {
 
 export default function FeaturedMovies() {
   const classes = useStyles();
+  const variables = {
+    region: process.env.REACT_APP_REGION,
+  };
   const { data, loading } = useQuery(POPULAR_MOVIES_QUERY, { variables });
   return (
     <div>
