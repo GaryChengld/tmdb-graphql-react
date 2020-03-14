@@ -40,7 +40,7 @@ function renderMovies(data: any) {
 
 function Upcoming() {
   const classes = useStyles();
-  const { data, loading } = useQuery(UPCOMINMG_QUERY, { variables });
+  const { data, loading } = useQuery(UPCOMINMG_QUERY, { variables, fetchPolicy: 'cache-first' });
   return (
     <div className={classes.container}>
       <Grid container alignItems="center">

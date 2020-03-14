@@ -8,7 +8,6 @@ import { MovieRating } from '..';
 
 const useStyle = makeStyles(theme => ({
   card: {
-    height: '100%',
     display: 'flex',
     flexDirection: 'column',
     transition: 'all 0.4s',
@@ -42,10 +41,11 @@ function ReleaseDate(props: MovieProps) {
 export default function MovieCard(props: MovieCardProps) {
   const classes = useStyle();
   const { movie } = props;
+  const imageUrl = movie.backdropPath ? movie.backdropPath : 'not_found.png';
   return (
     <Link to={`/movie/${movie.id}`} style={{ textDecoration: 'none' }}>
       <Card className={classes.card}>
-        <CardMedia className={classes.cardMedia} component="img" image={movie.backdropPath} title={movie.title} />
+        <CardMedia className={classes.cardMedia} component="img" image={imageUrl} title={movie.title} />
         <CardContent className={classes.cardContent}>
           {movie.voteAverage && <MovieRating rate={movie.voteAverage} />}
           <Typography gutterBottom variant="h6">

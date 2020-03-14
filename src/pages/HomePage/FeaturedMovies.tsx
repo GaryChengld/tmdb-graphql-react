@@ -1,10 +1,10 @@
 import React from 'react';
-import { GridList, GridListTile, GridListTileBar } from '@material-ui/core';
+import { GridList, GridListTile } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import gql from 'graphql-tag';
 import { useQuery } from '@apollo/react-hooks';
 
-import { Loading, PosterCard } from '../../components';
+import { Loading, PosterCard, TrailerCard } from '../../components';
 
 const POPULAR_MOVIES_QUERY = gql`
   query popularMovies($region: String) {
@@ -16,6 +16,9 @@ const POPULAR_MOVIES_QUERY = gql`
         releaseDate
         posterPath(size: L)
         backdropPath(size: M)
+        videos {
+          key
+        }
       }
     }
   }
@@ -42,8 +45,7 @@ function renderMovies(data: any, classes: any) {
           <PosterCard movie={movies[0]} />
         </GridListTile>
         <GridListTile key={0} cols={8} rows={2}>
-          <img className={classes.gridList} src={movies[0].backdropPath} alt={movies[0].title} />
-          <GridListTileBar title={movies[0].title} />
+          <TrailerCard movie={movies[0]} />
         </GridListTile>
         <GridListTile key={2} cols={1} rows={2}>
           <PosterCard movie={movies[1]} />
@@ -61,7 +63,7 @@ export default function FeaturedMovies() {
   const variables = {
     region: process.env.REACT_APP_REGION,
   };
-  const { data, loading } = useQuery(POPULAR_MOVIES_QUERY, { variables });
+  const { data, loading } = useQuery(POPULAR_MOVIES_QUERY, { variables, fetchPolicy: 'cache-first' });
   return (
     <div>
       {loading && <Loading />}

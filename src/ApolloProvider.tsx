@@ -11,8 +11,8 @@ const httpLink = createHttpLink({
 
 const defaultOptions = {
   watchQuery: {
-    fetchPolicy: 'network-only' as FetchPolicy,
-    errorPolicy: 'ignore' as ErrorPolicy,
+    fetchPolicy: 'cache-and-network' as FetchPolicy,
+    errorPolicy: 'all' as ErrorPolicy,
   },
   query: {
     fetchPolicy: 'network-only' as FetchPolicy,

@@ -78,7 +78,7 @@ function renderMovies(data: any) {
 
 function NowPlaying() {
   const classes = useStyles();
-  const { data, loading } = useQuery(NOW_PLAYING_QUERY, { variables });
+  const { data, loading } = useQuery(NOW_PLAYING_QUERY, { variables, fetchPolicy: 'cache-first' });
   return (
     <div className={classes.container}>
       <Grid container alignItems="center">

@@ -1,11 +1,10 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import { Container, Typography, Link, Box } from '@material-ui/core';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
+import { Typography, Link, Box, AppBar } from '@material-ui/core';
 
-const useStyles = makeStyles((theme: Theme) =>
+const useStyles = makeStyles(() =>
   createStyles({
     root: {
-      padding: theme.spacing(2),
       flexGrow: 1,
     },
   }),
@@ -15,8 +14,8 @@ export const Footer: React.FC = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      <Container maxWidth="lg">
-        <Box mt={4}>
+      <AppBar position="static" color="default">
+        <Box mt={1}>
           <Typography variant="body1" align="center">
             Developed by |{' '}
             <Link href="https://github.com/GaryChengld" target="_blank" rel="noopener">
@@ -24,7 +23,7 @@ export const Footer: React.FC = () => {
             </Link>
           </Typography>
         </Box>
-        <Box mt={1}>
+        <Box mt={1} mb={1}>
           <Typography variant="body1" align="center">
             <Link href="https://www.themoviedb.org/" target="_blank" rel="noopener">
               <img
@@ -35,7 +34,7 @@ export const Footer: React.FC = () => {
             </Link>
           </Typography>
         </Box>
-      </Container>
+      </AppBar>
     </div>
   );
 };
