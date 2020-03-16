@@ -47,7 +47,7 @@ export default function MovieCard(props: MovieCardProps) {
       <Card className={classes.card}>
         <CardMedia className={classes.cardMedia} component="img" image={imageUrl} title={movie.title} />
         <CardContent className={classes.cardContent}>
-          {movie.voteAverage && <MovieRating rate={movie.voteAverage} />}
+          {(movie.voteAverage || movie.voteAverage === 0) && <MovieRating rate={movie.voteAverage} />}
           <Typography gutterBottom variant="h6">
             {movie.title}
           </Typography>

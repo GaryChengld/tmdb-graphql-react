@@ -14,8 +14,9 @@ export const Footer: React.FC = () => {
   const classes = useStyles();
   return (
     <div className={classes.root}>
+      <Box mt={4} />
       <AppBar position="static" color="default">
-        <Box mt={1}>
+        <Box mt={2}>
           <Typography variant="body1" align="center">
             Developed by |{' '}
             <Link href="https://github.com/GaryChengld" target="_blank" rel="noopener">
@@ -23,7 +24,7 @@ export const Footer: React.FC = () => {
             </Link>
           </Typography>
         </Box>
-        <Box mt={1} mb={1}>
+        <Box mt={1} mb={2}>
           <Typography variant="body1" align="center">
             <Link href="https://www.themoviedb.org/" target="_blank" rel="noopener">
               <img

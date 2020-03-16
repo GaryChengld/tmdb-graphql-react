@@ -1,46 +1,54 @@
 import React from 'react';
 import { Box, Grid, Typography, Link } from '@material-ui/core';
 import { Link as ReactLink } from 'react-router-dom';
-import gql from 'graphql-tag';
-import { useQuery } from '@apollo/react-hooks';
+import { Settings } from 'react-slick';
 
-import { Loading, MovieCard } from '../../components';
+import { SimpleMovieCard, MovieCarousel } from '../../components';
+import { MoviesProps } from './HomePage';
 import useStyles from './styles';
 
-const UPCOMINMG_QUERY = gql`
-  query upcomingMovies($region: String) {
-    upcomingMovies(page: 1, region: $region) {
-      results {
-        id
-        title
-        overview
-        releaseDate
-        backdropPath(size: M)
-      }
-    }
-  }
-`;
-
-const variables = {
-  region: process.env.REACT_APP_REGION,
+const settings: Settings = {
+  centerMode: false,
+  infinite: true,
+  autoplay: true,
+  speed: 1000,
+  autoplaySpeed: 3000,
+  responsive: [
+    {
+      breakpoint: 3000,
+      settings: {
+        slidesToShow: 6,
+        slidesToScroll: 5,
+      },
+    },
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 4,
+        slidesToScroll: 4,
+      },
+    },
+    {
+      breakpoint: 600,
+      settings: {
+        slidesToShow: 2,
+        slidesToScroll: 2,
+      },
+    },
+    {
+      breakpoint: 480,
+      settings: {
+        slidesToShow: 1,
+        slidesToScroll: 1,
+      },
+    },
+  ],
 };
 
-function renderMovies(data: any) {
-  const movies = data['upcomingMovies'].results.slice(0, 3);
-  return (
-    <Grid container spacing={2} justify="center">
-      {movies.map((movie: any) => (
-        <Grid item key={movie.id} xs={12} md={4} lg={4}>
-          <MovieCard movie={movie} />
-        </Grid>
-      ))}
-    </Grid>
-  );
-}
-
-function Upcoming() {
+export default function Upcoming(props: MoviesProps) {
   const classes = useStyles();
-  const { data, loading } = useQuery(UPCOMINMG_QUERY, { variables, fetchPolicy: 'cache-first' });
+  let { movies } = props;
+  movies = movies.filter(m => m.posterPath);
   return (
     <div className={classes.container}>
       <Grid container alignItems="center">
@@ -57,10 +65,11 @@ function Upcoming() {
           </Link>
         </Grid>
       </Grid>
-      {loading && <Loading />}
-      {data && renderMovies(data)}
+      <MovieCarousel settings={settings}>
+        {movies.map((movie: any) => (
+          <SimpleMovieCard key={movie.id} movie={movie} />
+        ))}
+      </MovieCarousel>
     </div>
   );
 }
-
-export default Upcoming;
