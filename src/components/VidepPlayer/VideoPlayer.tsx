@@ -1,14 +1,7 @@
 import React from 'react';
-import {
-  Container,
-  Dialog,
-  DialogTitle,
-  DialogContent,
-  DialogActions,
-  Button,
-  Card,
-  CardMedia,
-} from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Card, CardMedia, Typography } from '@material-ui/core';
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
 import { Theme, makeStyles } from '@material-ui/core/styles';
 
 export interface VideoPlayerProps {
@@ -20,16 +13,20 @@ export interface VideoPlayerProps {
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    width: '100%',
-    hight: '100%',
+    margin: 0,
+    padding: theme.spacing(1),
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing(0),
+    top: theme.spacing(0),
+    color: theme.palette.grey[500],
   },
   dialogContent: {
-    width: '100%',
-    hight: '100%',
+    margin: 0,
+    padding: theme.spacing(0),
   },
   card: {
-    position: 'relative',
-    height: '100%',
     display: 'flex',
   },
   cardMedia: {
@@ -60,16 +57,19 @@ function VidepPlayer(props: VideoPlayerProps) {
       aria-labelledby="Video Player"
       open={open}
     >
+      <DialogTitle disableTypography className={classes.root}>
+        <Typography variant="h6" color="inherit">
+          {movie.title}
+        </Typography>
+        <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
+          <CloseIcon />
+        </IconButton>
+      </DialogTitle>
       <DialogContent className={classes.dialogContent}>
         <Card className={classes.card}>
           <CardMedia className={classes.cardMedia} component="iframe" src={trailerUrl} frameBorder={0} />
         </Card>
       </DialogContent>
-      <DialogActions>
-        <Button onClick={handleClose} color="primary">
-          Close
-        </Button>
-      </DialogActions>
     </Dialog>
   );
 }
