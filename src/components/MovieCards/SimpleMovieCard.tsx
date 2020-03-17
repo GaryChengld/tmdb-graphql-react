@@ -4,11 +4,12 @@ import { Card, CardContent, CardMedia, Typography } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { MovieCardProps } from './types';
-import { MovieRating } from '..';
+import { MovieRating, DisplayDate } from '..';
 
 const useStyle = makeStyles(theme => ({
   card: {
     height: '100%',
+    width: 190,
     flexDirection: 'column',
     transition: 'all 0.4s',
     '&:hover': {
@@ -22,6 +23,9 @@ const useStyle = makeStyles(theme => ({
   },
   cardContent: {
     paddingBottom: theme.spacing(0),
+  },
+  title: {
+    overflow: 'hidden',
   },
 }));
 
@@ -41,9 +45,10 @@ export default function SimpleMovieCard(props: MovieCardProps) {
         />
         <CardContent className={classes.cardContent}>
           {(movie.voteAverage || movie.voteAverage === 0) && <MovieRating rate={movie.voteAverage} />}
-          <Typography gutterBottom variant="subtitle1">
+          <Typography className={classes.title} gutterBottom variant="subtitle1" color="secondary" noWrap>
             {movie.title}
           </Typography>
+          {movie.releaseDate && <DisplayDate date={movie.releaseDate} variant="subtitle1" />}
         </CardContent>
       </Card>
     </Link>

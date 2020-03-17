@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, Card, CardMedia, Typography } from '@material-ui/core';
+import { Dialog, DialogTitle, DialogContent, Card, CardMedia, Typography } from '@material-ui/core';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import { Theme, makeStyles } from '@material-ui/core/styles';
@@ -30,16 +30,22 @@ const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex',
   },
   cardMedia: {
-    height: 540,
-    width: 960,
     paddingTop: theme.spacing(0),
+    [theme.breakpoints.up('md')]: {
+      height: 576,
+      width: 1024,
+    },
+    [theme.breakpoints.down('md')]: {
+      height: 405,
+      width: 720,
+    },
   },
 }));
 
 function VidepPlayer(props: VideoPlayerProps) {
   const { movie, videoKey, open, onClose } = props;
   const classes = useStyles();
-  const trailerUrl = `https://www.youtube.com/embed/${videoKey}?autoplay=1&modestbranding=1&iv_load_policy=3&rel=0`;
+  const trailerUrl = `https://www.youtube.com/embed/${videoKey}?autoplay=1&autohide=2&modestbranding=1&fs=0&showinfo=0&rel=0&iv_load_policy=3`;
 
   const handleClose = () => {
     if (onClose) {
@@ -52,8 +58,7 @@ function VidepPlayer(props: VideoPlayerProps) {
       className={classes.root}
       disableBackdropClick
       disableEscapeKeyDown
-      fullWidth={true}
-      maxWidth={'md'}
+      maxWidth={'xl'}
       aria-labelledby="Video Player"
       open={open}
     >

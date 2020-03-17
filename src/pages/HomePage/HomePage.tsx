@@ -6,7 +6,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { Loading } from '../../components';
 import NowPlaying from './NowPlaying';
 import Upcoming from './Upcoming';
-import FeaturedMovies from './FeaturedMovies';
+import Popular from './Popular';
 
 export interface MoviesProps {
   movies: any[];
@@ -19,9 +19,10 @@ const HOME_PAGE_MOVIES_QUERY = gql`
         id
         title
         voteAverage
-        releaseDate
         posterPath(size: L)
-        backdropPath(size: M)
+        videos(type: "Trailer") {
+          key
+        }
       }
     }
     nowPlayingMovies(page: 1, region: $region) {
@@ -30,7 +31,6 @@ const HOME_PAGE_MOVIES_QUERY = gql`
         title
         voteAverage
         posterPath(size: L)
-        backdropPath(size: M)
         videos(type: "Trailer") {
           key
         }
@@ -56,6 +56,7 @@ function renderPage(data: any) {
     <>
       <NowPlaying movies={nowPlayingMovies} />
       <Upcoming movies={upcomingMovies} />
+      <Popular movies={popularMovies} />
     </>
   );
 }
