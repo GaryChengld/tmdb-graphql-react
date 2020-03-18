@@ -15,6 +15,9 @@ const useStyles = makeStyles(() => ({
   gridList: {
     imgFullWidth: true,
   },
+  grid: {
+    height: '100%',
+  },
 }));
 
 export default function FeaturedMovies(props: MoviesProps) {
@@ -22,18 +25,18 @@ export default function FeaturedMovies(props: MoviesProps) {
   const { movies } = props;
   return (
     <div className={classes.root}>
-      <GridList cols={12} spacing={0} className={classes.gridList}>
-        <GridListTile key={1} cols={2} rows={2}>
+      <GridList cellHeight={160} cols={12} spacing={0} className={classes.gridList}>
+        <GridListTile className={classes.grid} key={1} cols={2} rows={2}>
           <PosterCard movie={movies[0]} />
         </GridListTile>
         <GridListTile key={0} cols={6} rows={2}>
           <TrailerCard movie={movies[0]} />
         </GridListTile>
         <GridListTile key={2} cols={2} rows={2}>
-          <PosterCard movie={movies[1]} />
+          <PosterCard movie={movies[1]} opacity={0.3} />
         </GridListTile>
         <GridListTile key={3} cols={2} rows={2}>
-          <PosterCard movie={movies[2]} />
+          <PosterCard movie={movies[2]} opacity={0.3} />
         </GridListTile>
       </GridList>
     </div>

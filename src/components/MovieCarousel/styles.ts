@@ -15,7 +15,7 @@ export default makeStyles(theme => ({
     cursor: 'pointer',
     position: 'absolute',
     top: 0,
-    bottom: 60,
+    bottom: 0,
     width: 20,
     display: 'flex',
     alignItems: 'center',

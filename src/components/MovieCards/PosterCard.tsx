@@ -8,8 +8,8 @@ import { MovieCardProps } from './types';
 const useStyle = makeStyles(theme => ({
   card: {
     position: 'relative',
-    height: '100%',
     display: 'flex',
+    height: '100%',
   },
   cardMedia: {
     height: '100%',
@@ -24,12 +24,18 @@ const useStyle = makeStyles(theme => ({
 
 export default function PosterCard(props: MovieCardProps) {
   const classes = useStyle();
-  const { movie } = props;
+  const { movie, opacity } = props;
+  const styles = {
+    opacity: opacity ? opacity : 1,
+    '&:hover': {
+      opacity: 1,
+    },
+  };
   const imageUrl = movie.posterPath ? movie.posterPath : 'not_found.png';
   return (
     <Link to={`/movie/${movie.id}`} style={{ textDecoration: 'none' }}>
       <Card className={classes.card}>
-        <CardMedia className={classes.cardMedia} component="img" image={imageUrl} title={movie.title} />
+        <CardMedia className={classes.cardMedia} component="img" image={imageUrl} title={movie.title} style={styles} />
       </Card>
     </Link>
   );

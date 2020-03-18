@@ -1,44 +1,30 @@
 import React from 'react';
 import { Link as ReactLink } from 'react-router-dom';
-import { Box, Grid, Typography, Link } from '@material-ui/core';
-import { Settings } from 'react-slick';
+import { Box, Grid, Typography, Link, GridList, GridListTile } from '@material-ui/core';
+import { Theme, makeStyles } from '@material-ui/core/styles';
 
-import { MovieCarousel } from '../../components';
-import FeaturedMovies from './FeaturedMovies';
+import { PosterCard } from '../../components';
 import { MoviesProps } from './HomePage';
-import useStyles from './styles';
 
-const settings: Settings = {
-  adaptiveHeight: false,
-  variableWidth: false,
-  centerMode: false,
-  infinite: true,
-  autoplay: false,
-  speed: 500,
-  slidesToShow: 1,
-  slidesToScroll: 1,
-};
+const useStyles = makeStyles((theme: Theme) => ({
+  root: {
+    display: 'flex',
+    justifyContent: 'space-around',
+  },
+  container: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
+  gridList: {
+    imgFullWidth: true,
+  },
+}));
 
-function renderMovie(movies: any[], index: number) {
-  const feturedMovies: any[3] = [];
-  feturedMovies.push(movies[index]);
-  if (index < movies.length - 2) {
-    feturedMovies.push(movies[index + 1]);
-    feturedMovies.push(movies[index + 2]);
-  } else if (index === movies.length - 2) {
-    feturedMovies.push(movies[index + 1]);
-    feturedMovies.push(movies[0]);
-  } else {
-    feturedMovies.push(movies[0]);
-    feturedMovies.push(movies[1]);
-  }
-  return <FeaturedMovies key={index} movies={feturedMovies} />;
-}
-
-export default function NowPlaying(props: MoviesProps) {
+export default function Popular(props: MoviesProps) {
   const classes = useStyles();
   const { movies } = props;
-  const moviesWithVideo = movies.filter(m => m.videos.length > 0);
+  const top3 = movies.slice(0, 3);
+  const others = movies.slice(3, 15);
   return (
     <div className={classes.container}>
       <Grid container alignItems="center">
@@ -55,9 +41,22 @@ export default function NowPlaying(props: MoviesProps) {
           </Link>
         </Grid>
       </Grid>
-      <MovieCarousel settings={settings}>
-        {moviesWithVideo.map((movie: any, index: number) => renderMovie(moviesWithVideo, index))}
-      </MovieCarousel>
+      <GridList cellHeight={152} cols={12} spacing={0} className={classes.gridList}>
+        {top3.map((movie: any) => (
+          <GridListTile key={movie.id} cols={2} rows={2}>
+            <PosterCard movie={movie} />
+          </GridListTile>
+        ))}
+        <GridListTile key={'others'} cols={6} rows={2}>
+          <GridList cellHeight={152} cols={6} spacing={0} className={classes.gridList}>
+            {others.map((movie: any) => (
+              <GridListTile key={movie.id} cols={1} rows={1}>
+                <PosterCard movie={movie} />
+              </GridListTile>
+            ))}
+          </GridList>
+        </GridListTile>
+      </GridList>
     </div>
   );
 }

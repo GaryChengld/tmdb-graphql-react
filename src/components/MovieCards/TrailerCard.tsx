@@ -13,7 +13,6 @@ const useStyle = makeStyles(theme => ({
     display: 'flex',
   },
   cardMedia: {
-    height: '100%',
     paddingTop: theme.spacing(0),
   },
   overlay: {

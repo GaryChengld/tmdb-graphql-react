@@ -4,7 +4,8 @@ import { Typography, Card, CardContent, CardMedia } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { MovieCardProps } from './types';
-import { MovieRating, DisplayDate } from '..';
+import { MovieRating } from '..';
+import * as utils from '../../CommonUtils';
 
 const useStyle = makeStyles(theme => ({
   card: {
@@ -38,7 +39,11 @@ export default function MovieCard(props: MovieCardProps) {
           <Typography gutterBottom variant="h6">
             {movie.title}
           </Typography>
-          {movie.releaseDate && <DisplayDate date={movie.releaseDate} variant="subtitle2" color="secondary" />}
+          {movie.releaseDate && (
+            <Typography variant="subtitle1" component="p">
+              {utils.formatDate(movie.releaseDate)}
+            </Typography>
+          )}
         </CardContent>
       </Card>
     </Link>
