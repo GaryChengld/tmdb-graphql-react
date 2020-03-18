@@ -14,17 +14,6 @@ export interface MoviesProps {
 
 const HOME_PAGE_MOVIES_QUERY = gql`
   query featuredMovies($region: String) {
-    popularMovies(page: 1, region: $region) {
-      results {
-        id
-        title
-        voteAverage
-        posterPath(size: L)
-        videos(type: "Trailer") {
-          key
-        }
-      }
-    }
     nowPlayingMovies(page: 1, region: $region) {
       results {
         id
@@ -44,8 +33,16 @@ const HOME_PAGE_MOVIES_QUERY = gql`
         posterPath(size: L)
       }
     }
+    popularMovies(page: 1, region: $region) {
+      results {
+        id
+        title
+        posterPath(size: L)
+      }
+    }
   }
 `;
+
 function renderPage(data: any) {
   const {
     popularMovies: { results: popularMovies },
