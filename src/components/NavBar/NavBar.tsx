@@ -4,8 +4,12 @@ import { AppBar, Toolbar, IconButton, Link, InputBase } from '@material-ui/core'
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
+export interface NavBarProps {
+  onClickMenu?: () => void;
+}
+
 const useStyles = makeStyles((theme: Theme) => ({
-  root: {
+  grow: {
     flexGrow: 1,
   },
   logo: {
@@ -16,7 +20,10 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginRight: theme.spacing(0),
   },
   title: {
-    flexGrow: 1,
+    display: 'none',
+    [theme.breakpoints.up('sm')]: {
+      display: 'block',
+    },
   },
   search: {
     position: 'relative',
@@ -25,6 +32,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     '&:hover': {
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
+    marginRight: theme.spacing(1),
     marginLeft: 0,
     width: '100%',
     [theme.breakpoints.up('sm')]: {
@@ -57,13 +65,26 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-export default function NavBar() {
+export default function NavBar(props: NavBarProps) {
+  const { onClickMenu } = props;
   const classes = useStyles();
+  const handleClickMenu = () => {
+    if (onClickMenu) {
+      onClickMenu();
+    }
+  };
+
   return (
-    <div className={classes.root}>
+    <div>
       <AppBar position="static" color="default">
         <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+          <IconButton
+            edge="start"
+            className={classes.menuButton}
+            color="inherit"
+            aria-label="menu"
+            onClick={handleClickMenu}
+          >
             <MenuIcon />
           </IconButton>
           <div className={classes.logo}>
@@ -72,6 +93,7 @@ export default function NavBar() {
           <Link href="/" variant="h6" className={classes.title} color="inherit" underline="none">
             MovieDiscover
           </Link>
+          <div className={classes.grow} />
           <div className={classes.search}>
             <div className={classes.searchIcon}>
               <SearchIcon />

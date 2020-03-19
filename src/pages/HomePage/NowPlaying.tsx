@@ -22,15 +22,15 @@ const settings: Settings = {
 function renderMovie(movies: any[], index: number) {
   const feturedMovies: any[3] = [];
   feturedMovies.push(movies[index]);
-  if (index < movies.length - 2) {
+  if (index > 0) {
+    feturedMovies.push(movies[index - 1]);
+  } else {
+    feturedMovies.push(movies[movies.length - 1]);
+  }
+  if (index < movies.length - 1) {
     feturedMovies.push(movies[index + 1]);
-    feturedMovies.push(movies[index + 2]);
-  } else if (index === movies.length - 2) {
-    feturedMovies.push(movies[index + 1]);
-    feturedMovies.push(movies[0]);
   } else {
     feturedMovies.push(movies[0]);
-    feturedMovies.push(movies[1]);
   }
   return <FeaturedMovies key={index} movies={feturedMovies} />;
 }
