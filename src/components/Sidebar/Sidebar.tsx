@@ -1,6 +1,6 @@
 import React from 'react';
-import { Drawer, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import { Drawer, List, ListItem, ListItemIcon, ListItemText, Divider } from '@material-ui/core';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 
 export interface SidebarProps {
   open: boolean;
@@ -9,17 +9,18 @@ export interface SidebarProps {
 
 const sidebarWidth = 240;
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   drawerPaper: {
     width: sidebarWidth,
   },
+  toolbar: theme.mixins.toolbar,
   list: {
     width: sidebarWidth,
   },
   fullList: {
     width: 'auto',
   },
-});
+}));
 
 export default function Sidebar(props: SidebarProps) {
   const { open, onClose } = props;
@@ -33,7 +34,10 @@ export default function Sidebar(props: SidebarProps) {
       }}
       anchor="left"
       open={open}
-      onClose={onClose} >
+      onClose={onClose}
+    >
+      <div className={classes.toolbar} />
+      <Divider color="inherite" />
     </Drawer>
   );
 }
