@@ -1,13 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link as ReactLink } from 'react-router-dom';
 import { Theme, fade, makeStyles } from '@material-ui/core/styles';
-import { AppBar, Toolbar, IconButton, Link, InputBase } from '@material-ui/core';
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Link,
+  InputBase,
+  Drawer,
+  Divider,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+} from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import HomeIcon from '@material-ui/icons/Home';
+import VideocamIcon from '@material-ui/icons/Videocam';
 
-export interface NavBarProps {
-  onClickMenu?: () => void;
+interface SidebarProps {
+  open: boolean;
+  onClose?: () => void;
 }
 
+const sidebarWidth = 240;
 const useStyles = makeStyles((theme: Theme) => ({
   grow: {
     flexGrow: 1,
@@ -34,7 +51,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     },
     marginRight: theme.spacing(1),
     marginLeft: 0,
-    width: '100%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(1),
       width: 'auto',
@@ -57,22 +73,85 @@ const useStyles = makeStyles((theme: Theme) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: 120,
+      width: 160,
       '&:focus': {
-        width: 200,
+        width: 240,
       },
     },
   },
+  drawerPaper: {
+    width: sidebarWidth,
+  },
+  toolbar: theme.mixins.toolbar,
 }));
 
-export default function NavBar(props: NavBarProps) {
-  const { onClickMenu } = props;
+function Logo() {
   const classes = useStyles();
-  const handleClickMenu = () => {
-    if (onClickMenu) {
-      onClickMenu();
-    }
-  };
+  return (
+    <>
+      <div className={classes.logo}>
+        <img src="/logo.png" width="16" alt="Movie Discover" />
+      </div>
+      <Link component={ReactLink} to="/" variant="h6" className={classes.title} color="inherit" underline="none">
+        MovieDiscover
+      </Link>
+    </>
+  );
+}
+
+function Sidebar(props: SidebarProps) {
+  const { open, onClose } = props;
+  const classes = useStyles();
+
+  return (
+    <Drawer
+      variant="temporary"
+      classes={{
+        paper: classes.drawerPaper,
+      }}
+      anchor="left"
+      open={open}
+      onClose={onClose}
+      transitionDuration={{ enter: 250, exit: 250 }}
+    >
+      <div className={classes.toolbar} onClick={onClose}>
+        <Toolbar>
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu" onClick={onClose}>
+            <MenuIcon />
+          </IconButton>
+          <Logo />
+        </Toolbar>
+      </div>
+      <Divider />
+      <div onClick={onClose}>
+        <List>
+          <Link component={ReactLink} to="/" color="textSecondary" underline="none">
+            <ListItem button>
+              <ListItemIcon>
+                <HomeIcon />
+              </ListItemIcon>
+              <ListItemText primary="Home" />
+            </ListItem>
+          </Link>
+          <Link component={ReactLink} to="/movie/nowPlaying" color="textSecondary" underline="none">
+            <ListItem button>
+              <ListItemIcon>
+                <VideocamIcon />
+              </ListItemIcon>
+              <ListItemText primary="In Theaters" />
+            </ListItem>
+          </Link>
+        </List>
+      </div>
+    </Drawer>
+  );
+}
+
+export default function NavBar() {
+  const classes = useStyles();
+  const [sidebar, setSidebar] = useState(false);
+  const openSidebar = () => setSidebar(true);
+  const closeSidebar = () => setSidebar(false);
 
   return (
     <div>
@@ -83,16 +162,11 @@ export default function NavBar(props: NavBarProps) {
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
-            onClick={handleClickMenu}
+            onClick={openSidebar}
           >
             <MenuIcon />
           </IconButton>
-          <div className={classes.logo}>
-            <img src="/logo.png" width="16" alt="Movie Discover" />
-          </div>
-          <Link href="/" variant="h6" className={classes.title} color="inherit" underline="none">
-            MovieDiscover
-          </Link>
+          <Logo />
           <div className={classes.grow} />
           <div className={classes.search}>
             <div className={classes.searchIcon}>
@@ -109,6 +183,7 @@ export default function NavBar(props: NavBarProps) {
           </div>
         </Toolbar>
       </AppBar>
+      <Sidebar open={sidebar} onClose={closeSidebar} />
     </div>
   );
 }

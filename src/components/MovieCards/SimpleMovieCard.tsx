@@ -35,7 +35,7 @@ const useStyle = makeStyles(theme => ({
 export default function SimpleMovieCard(props: MovieCardProps) {
   const classes = useStyle();
   const { movie } = props;
-  const imageUrl = movie.posterPath ? movie.posterPath : 'not_found.png';
+  const imageUrl = movie.posterPath ? movie.posterPath : '/not_found.png';
   return (
     <Link to={`/movie/${movie.id}`} style={{ textDecoration: 'none' }}>
       <Card className={classes.card}>

@@ -55,11 +55,10 @@ const palleteOptions = {
     contrastText: white,
   },
   background: {
-    paper: 'rgb(75, 75, 75)',
+    paper: 'rgb(60, 60, 60)',
     default: 'rgb(45, 45, 45)',
   },
   border: '#DFE3E8',
-  divider: '#DFE3E8',
   oxfordBlue: 'rgba(5, 41, 73, 1)',
   prussianBlue: 'rgba(19, 49, 92, 1)',
   darkCerulean: 'rgba(19, 64, 116, 1)',
