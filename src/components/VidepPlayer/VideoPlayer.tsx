@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 function VidepPlayer(props: VideoPlayerProps) {
   const { movie, videoKey, open, onClose } = props;
   const classes = useStyles();
-  const trailerUrl = `https://www.youtube.com/embed/${videoKey}?autoplay=1&autohide=2&modestbranding=1&fs=0&showinfo=0&rel=0&iv_load_policy=3`;
+  const trailerUrl = `https://www.youtube.com/embed/${videoKey}?autoplay=1&autohide=2&modestbranding=1&fs=1&autohide=1&rel=0`;
 
   const handleClose = () => {
     if (onClose) {
@@ -72,7 +72,14 @@ function VidepPlayer(props: VideoPlayerProps) {
       </DialogTitle>
       <DialogContent className={classes.dialogContent}>
         <Card className={classes.card}>
-          <CardMedia className={classes.cardMedia} component="iframe" src={trailerUrl} frameBorder={0} />
+          <CardMedia
+            className={classes.cardMedia}
+            component="iframe"
+            src={trailerUrl}
+            frameBorder={0}
+            allowFullScreen
+            allow="autoplay; encrypted-media"
+          />
         </Card>
       </DialogContent>
     </Dialog>

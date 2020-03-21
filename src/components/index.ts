@@ -5,4 +5,7 @@ export * from './MovieCards';
 export * from './MovieRating';
 export * from './MovieCarousel';
 export * from './VidepPlayer';
-export * from './MoviePagination';
+export * from './Pagination';
+export * from './MovieResults';
+export * from './PageTitle';
+export * from './QueryMovies';

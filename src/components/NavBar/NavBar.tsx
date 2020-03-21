@@ -17,7 +17,10 @@ import {
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import HomeIcon from '@material-ui/icons/Home';
-import VideocamIcon from '@material-ui/icons/Videocam';
+import TheatersIcon from '@material-ui/icons/Theaters';
+import WatchLaterIcon from '@material-ui/icons/WatchLater';
+import WhatshotIcon from '@material-ui/icons/Whatshot';
+import StarBorderIcon from '@material-ui/icons/StarBorder';
 
 interface SidebarProps {
   open: boolean;
@@ -73,9 +76,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     transition: theme.transitions.create('width'),
     width: '100%',
     [theme.breakpoints.up('sm')]: {
-      width: 160,
+      width: 200,
       '&:focus': {
-        width: 240,
+        width: 320,
       },
     },
   },
@@ -136,9 +139,33 @@ function Sidebar(props: SidebarProps) {
           <Link component={ReactLink} to="/movie/nowPlaying" color="textSecondary" underline="none">
             <ListItem button>
               <ListItemIcon>
-                <VideocamIcon />
+                <TheatersIcon />
               </ListItemIcon>
               <ListItemText primary="In Theaters" />
+            </ListItem>
+          </Link>
+          <Link component={ReactLink} to="/movie/upcoming" color="textSecondary" underline="none">
+            <ListItem button>
+              <ListItemIcon>
+                <WatchLaterIcon />
+              </ListItemIcon>
+              <ListItemText primary="Coming Soon" />
+            </ListItem>
+          </Link>
+          <Link component={ReactLink} to="/movie/popular" color="textSecondary" underline="none">
+            <ListItem button>
+              <ListItemIcon>
+                <WhatshotIcon />
+              </ListItemIcon>
+              <ListItemText primary="Popular Movies" />
+            </ListItem>
+          </Link>
+          <Link component={ReactLink} to="/movie/topRated" color="textSecondary" underline="none">
+            <ListItem button>
+              <ListItemIcon>
+                <StarBorderIcon />
+              </ListItemIcon>
+              <ListItemText primary="Top Rated" />
             </ListItem>
           </Link>
         </List>
