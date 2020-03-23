@@ -8,6 +8,21 @@ const basicMovieFragment = gql`
   }
 `;
 
+const listMovieFragment = gql`
+  fragment ListMovieInfo on BaseMovie {
+    id
+    title
+    releaseDate
+    voteAverage
+    overview
+    posterPath(size: L)
+    backdropPath
+    genres {
+      name
+    }
+  }
+`;
+
 export const homePageQuery = gql`
   query homePageQuery($region: String) {
     nowPlayingMovies(page: 1, region: $region) {
@@ -40,13 +55,11 @@ export const nowPlayingMoviesQuery = gql`
       page
       totalPages
       results {
-        ...BasicMovieInfo
-        voteAverage
-        releaseDate
+        ...ListMovieInfo
       }
     }
   }
-  ${basicMovieFragment}
+  ${listMovieFragment}
 `;
 
 export const upcomingMoviesQuery = gql`
@@ -55,12 +68,11 @@ export const upcomingMoviesQuery = gql`
       page
       totalPages
       results {
-        ...BasicMovieInfo
-        releaseDate
+        ...ListMovieInfo
       }
     }
   }
-  ${basicMovieFragment}
+  ${listMovieFragment}
 `;
 
 export const popularMoviesQuery = gql`
@@ -69,13 +81,11 @@ export const popularMoviesQuery = gql`
       page
       totalPages
       results {
-        ...BasicMovieInfo
-        voteAverage
-        releaseDate
+        ...ListMovieInfo
       }
     }
   }
-  ${basicMovieFragment}
+  ${listMovieFragment}
 `;
 
 export const topRatedMoviesQuery = gql`
@@ -84,11 +94,9 @@ export const topRatedMoviesQuery = gql`
       page
       totalPages
       results {
-        ...BasicMovieInfo
-        voteAverage
-        releaseDate
+        ...ListMovieInfo
       }
     }
   }
-  ${basicMovieFragment}
+  ${listMovieFragment}
 `;

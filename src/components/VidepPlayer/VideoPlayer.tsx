@@ -45,7 +45,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 function VidepPlayer(props: VideoPlayerProps) {
   const { movie, videoKey, open, onClose } = props;
   const classes = useStyles();
-  const trailerUrl = `https://www.youtube.com/embed/${videoKey}?autoplay=1&autohide=2&modestbranding=1&fs=1&autohide=1&rel=0`;
+  const trailerUrl = `https://www.youtube.com/embed/${videoKey}?autoplay=1&autohide=2&modestbranding=1&fs=1&autohide=1&`;
 
   const handleClose = () => {
     if (onClose) {

@@ -95,7 +95,7 @@ function Logo() {
       <div className={classes.logo}>
         <img src="/logo.png" width="16" alt="Movie Discover" />
       </div>
-      <Link component={ReactLink} to="/" variant="h6" className={classes.title} color="inherit" underline="none">
+      <Link component={ReactLink} to="/" variant="h6" className={classes.title} color="textPrimary" underline="none">
         MovieDiscover
       </Link>
     </>

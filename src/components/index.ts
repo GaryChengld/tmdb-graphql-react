@@ -9,3 +9,4 @@ export * from './Pagination';
 export * from './MovieResults';
 export * from './PageTitle';
 export * from './QueryMovies';
+export * from './BackgroundImage';
