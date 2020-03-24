@@ -24,9 +24,12 @@ const useStyle = makeStyles(theme => ({
     height: '100%',
     display: 'flex',
   },
+  grow: {
+    flexGrow: 1,
+  },
   cardMedia: {
     width: 120,
-    height: 180,
+    height: '100%',
     paddingTop: theme.spacing(0),
   },
   details: {
@@ -83,7 +86,7 @@ export default function MovieCard(props: MovieCardProps) {
           <CardContent className={classes.cardContent}>
             <HtmlTooltip title={movie.overview}>
               <div className={classes.header}>
-                <Typography gutterBottom className={classes.title} color="primary" variant="h6" component="span">
+                <Typography gutterBottom className={classes.title} color="primary" variant="h5" component="span">
                   {movie.title}
                 </Typography>
                 {(movie.voteAverage || movie.voteAverage === 0) && <MovieRating rate={movie.voteAverage} />}
@@ -98,9 +101,9 @@ export default function MovieCard(props: MovieCardProps) {
               <Chip key={g.name} className={classes.clip} size="medium" label={g.name} />
             ))}
           </CardContent>
-          <CardActions className={classes.controls}>
+          <CardActions className={classes.controls} disableSpacing>
             {video && (
-              <HtmlTooltip title="Play Trailer">
+              <HtmlTooltip title="Play trailer">
                 <IconButton color="default" onClick={() => setOpenVideo(true)}>
                   <PlayCircleOutlineIcon />
                 </IconButton>
