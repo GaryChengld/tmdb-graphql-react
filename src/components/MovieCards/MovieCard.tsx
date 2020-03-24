@@ -1,10 +1,22 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Typography, Card, CardContent, CardMedia, Chip } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { useState } from 'react';
+import { Link as ReactLink } from 'react-router-dom';
+import {
+  Typography,
+  Card,
+  CardContent,
+  CardMedia,
+  Chip,
+  CardActions,
+  IconButton,
+  Link,
+  Tooltip,
+} from '@material-ui/core';
+import { withStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import DescriptionIcon from '@material-ui/icons/Description';
+import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 
 import { MovieCardProps } from './types';
-import { MovieRating } from '..';
+import { MovieRating, VideoPlayer } from '..';
 import * as utils from '../../CommonUtils';
 
 const useStyle = makeStyles(theme => ({
@@ -17,10 +29,14 @@ const useStyle = makeStyles(theme => ({
     height: 180,
     paddingTop: theme.spacing(0),
   },
+  details: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
   cardContent: {
+    flex: '1 0 auto',
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(1),
-    opacity: 1,
   },
   header: {
     paddingTop: theme.spacing(0),
@@ -36,33 +52,78 @@ const useStyle = makeStyles(theme => ({
   clip: {
     marginRight: theme.spacing(0.5),
   },
+  controls: {
+    paddingLeft: theme.spacing(1),
+  },
 }));
 
+const HtmlTooltip = withStyles((theme: Theme) => ({
+  tooltip: {
+    backgroundColor: '#f5f5f9',
+    color: 'rgba(0, 0, 0, 0.87)',
+    maxWidth: 300,
+    fontSize: theme.typography.pxToRem(14),
+    border: '1px solid #dadde9',
+  },
+}))(Tooltip);
+
 export default function MovieCard(props: MovieCardProps) {
+  const [openVideo, setOpenVideo] = useState(false);
   const classes = useStyle();
   const { movie } = props;
   const imageUrl = movie.posterPath ? movie.posterPath : '/not_found.png';
+  const video: boolean = movie.videos && movie.videos.length > 0;
   return (
-    <Card className={classes.root} raised>
-      <Link className={classes.cardMedia} to={`/movie/${movie.id}`} style={{ textDecoration: 'none' }}>
-        <CardMedia className={classes.cardMedia} component="img" image={imageUrl} title={movie.title} />
-      </Link>
-      <CardContent className={classes.cardContent}>
-        <div className={classes.header}>
-          <Typography gutterBottom className={classes.title} color="primary" variant="h6" component="span">
-            {movie.title}
-          </Typography>
-          {(movie.voteAverage || movie.voteAverage === 0) && <MovieRating rate={movie.voteAverage} />}
+    <>
+      <Card className={classes.root} raised>
+        <Link component={ReactLink} to={`/movie/${movie.id}`} underline="none">
+          <CardMedia className={classes.cardMedia} component="img" image={imageUrl} title={movie.title} />
+        </Link>
+        <div className={classes.details}>
+          <CardContent className={classes.cardContent}>
+            <HtmlTooltip title={movie.overview}>
+              <div className={classes.header}>
+                <Typography gutterBottom className={classes.title} color="primary" variant="h6" component="span">
+                  {movie.title}
+                </Typography>
+                {(movie.voteAverage || movie.voteAverage === 0) && <MovieRating rate={movie.voteAverage} />}
+              </div>
+            </HtmlTooltip>
+            {movie.releaseDate && (
+              <Typography className={classes.releaseDate} variant="subtitle1" component="div">
+                {utils.formatDate(movie.releaseDate)}
+              </Typography>
+            )}
+            {movie.genres.map((g: any) => (
+              <Chip key={g.name} className={classes.clip} size="medium" label={g.name} />
+            ))}
+          </CardContent>
+          <CardActions className={classes.controls}>
+            {video && (
+              <HtmlTooltip title="Play Trailer">
+                <IconButton color="default" onClick={() => setOpenVideo(true)}>
+                  <PlayCircleOutlineIcon />
+                </IconButton>
+              </HtmlTooltip>
+            )}
+            <Link component={ReactLink} to={`/movie/${movie.id}`} underline="none">
+              <HtmlTooltip title="More info...">
+                <IconButton color="default">
+                  <DescriptionIcon />
+                </IconButton>
+              </HtmlTooltip>
+            </Link>
+          </CardActions>
         </div>
-        {movie.releaseDate && (
-          <Typography className={classes.releaseDate} variant="subtitle1" component="div">
-            {utils.formatDate(movie.releaseDate)}
-          </Typography>
-        )}
-        {movie.genres.map((g: any) => (
-          <Chip key={g.name} className={classes.clip} size="medium" label={g.name} />
-        ))}
-      </CardContent>
-    </Card>
+      </Card>
+      {openVideo && (
+        <VideoPlayer
+          movie={movie}
+          videoKey={movie.videos[0].key}
+          open={openVideo}
+          onClose={() => setOpenVideo(false)}
+        />
+      )}
+    </>
   );
 }

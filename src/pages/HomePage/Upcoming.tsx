@@ -5,7 +5,6 @@ import { Settings } from 'react-slick';
 
 import { SimpleMovieCard, MovieCarousel } from '../../components';
 import { MoviesProps } from './HomePage';
-import useStyles from './styles';
 
 const settings: Settings = {
   centerMode: false,
@@ -46,11 +45,10 @@ const settings: Settings = {
 };
 
 export default function Upcoming(props: MoviesProps) {
-  const classes = useStyles();
   let { movies } = props;
   movies = movies.filter(m => m.posterPath);
   return (
-    <div className={classes.container}>
+    <>
       <Grid container alignItems="center">
         <Grid item xs>
           <Typography variant="h5" color="inherit">
@@ -70,6 +68,6 @@ export default function Upcoming(props: MoviesProps) {
           <SimpleMovieCard key={movie.id} movie={movie} />
         ))}
       </MovieCarousel>
-    </div>
+    </>
   );
 }

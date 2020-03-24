@@ -20,6 +20,9 @@ const listMovieFragment = gql`
     genres {
       name
     }
+    videos(type: "Trailer") {
+      key
+    }
   }
 `;
 

@@ -1,20 +1,12 @@
 import React from 'react';
 import { Link as ReactLink } from 'react-router-dom';
 import { Box, Grid, Typography, Link, GridList, GridListTile } from '@material-ui/core';
-import { Theme, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { PosterCard } from '../../components';
 import { MoviesProps } from './HomePage';
 
-const useStyles = makeStyles((theme: Theme) => ({
-  root: {
-    display: 'flex',
-    justifyContent: 'space-around',
-  },
-  container: {
-    paddingTop: theme.spacing(2),
-    paddingBottom: theme.spacing(2),
-  },
+const useStyles = makeStyles(() => ({
   gridList: {
     imgFullWidth: true,
   },
@@ -26,7 +18,7 @@ export default function Popular(props: MoviesProps) {
   const top3 = movies.slice(0, 3);
   const others = movies.slice(3, 15);
   return (
-    <div className={classes.container}>
+    <>
       <Grid container alignItems="center">
         <Grid item xs>
           <Typography variant="h5" color="inherit">
@@ -57,6 +49,6 @@ export default function Popular(props: MoviesProps) {
           </GridList>
         </GridListTile>
       </GridList>
-    </div>
+    </>
   );
 }

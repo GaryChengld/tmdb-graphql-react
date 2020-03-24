@@ -6,7 +6,6 @@ import { Settings } from 'react-slick';
 import { MovieCarousel } from '../../components';
 import FeaturedMovies from './FeaturedMovies';
 import { MoviesProps } from './HomePage';
-import useStyles from './styles';
 
 const settings: Settings = {
   adaptiveHeight: false,
@@ -36,11 +35,10 @@ function renderMovie(movies: any[], index: number) {
 }
 
 export default function NowPlaying(props: MoviesProps) {
-  const classes = useStyles();
   const { movies } = props;
   const moviesWithVideo = movies.filter(m => m.videos.length > 0);
   return (
-    <div className={classes.container}>
+    <>
       <Grid container alignItems="center">
         <Grid item xs>
           <Typography variant="h5" color="inherit">
@@ -58,6 +56,6 @@ export default function NowPlaying(props: MoviesProps) {
       <MovieCarousel settings={settings}>
         {moviesWithVideo.map((movie: any, index: number) => renderMovie(moviesWithVideo, index))}
       </MovieCarousel>
-    </div>
+    </>
   );
 }

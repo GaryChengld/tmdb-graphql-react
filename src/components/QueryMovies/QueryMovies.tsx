@@ -1,11 +1,11 @@
 import React from 'react';
 import { RouteComponentProps, withRouter } from 'react-router';
-import { Container } from '@material-ui/core/';
-import { makeStyles } from '@material-ui/core/styles';
+import { Container, Grid, Typography, Box } from '@material-ui/core/';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useQuery } from '@apollo/react-hooks';
 import { DocumentNode } from 'graphql';
 
-import { Loading, Pagination, MovieResults, PageTitle, BackgroundImage } from '../../components';
+import { Loading, Pagination, MovieResults, BackgroundImage } from '../../components';
 import * as utils from '../../CommonUtils';
 
 interface QueryMoviesProps extends RouteComponentProps {
@@ -13,19 +13,18 @@ interface QueryMoviesProps extends RouteComponentProps {
   query: DocumentNode;
 }
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
   container: {
     position: 'relative',
     'z-index': 1,
   },
-  image: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    width: '100%',
-    height: 'auto',
-    opacity: '0.3',
-    'z-index': -1,
+  root: {
+    paddingTop: theme.spacing(2),
+    paddingBottom: theme.spacing(2),
+  },
+  header: {
+    paddingTop: theme.spacing(0),
+    paddingBottom: theme.spacing(1),
   },
 }));
 
@@ -76,16 +75,24 @@ function QueryMovies(props: QueryMoviesProps) {
   };
   const backgroundImage = loading ? null : getBackgroundImage(data);
   return (
-    <>
-      <BackgroundImage imagePath={backgroundImage}>
-        <Container className={classes.container} maxWidth="lg">
-          <PageTitle title={title} />
+    <BackgroundImage imagePath={backgroundImage}>
+      <Container className={classes.container} maxWidth="lg">
+        <div className={classes.root}>
+          <div className={classes.header}>
+            <Grid container alignItems="center">
+              <Grid item xs>
+                <Typography variant="h5" color="inherit">
+                  <Box fontWeight="fontWeightBold">{title}</Box>
+                </Typography>
+              </Grid>
+            </Grid>
+          </div>
           {!loading && data && renderData(data)}
           {!loading && data && renderPagination(data, loadPage)}
           {loading && <Loading />}
-        </Container>
-      </BackgroundImage>
-    </>
+        </div>
+      </Container>
+    </BackgroundImage>
   );
 }
 

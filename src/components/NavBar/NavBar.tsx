@@ -182,7 +182,7 @@ export default function NavBar() {
 
   return (
     <div>
-      <AppBar position="static" color="default">
+      <AppBar position="fixed" color="default">
         <Toolbar>
           <IconButton
             edge="start"
@@ -210,6 +210,7 @@ export default function NavBar() {
           </div>
         </Toolbar>
       </AppBar>
+      <div className={classes.toolbar} />
       <Sidebar open={sidebar} onClose={closeSidebar} />
     </div>
   );

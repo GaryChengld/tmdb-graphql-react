@@ -16,7 +16,7 @@ function NextArrow(props: any) {
   const classes = useStyles();
   return (
     <div className={classnames(classes.arrow, 'nextArrow')} onClick={onClick}>
-      <ArrowForwardIos color="inherit" fontSize="large" />
+      <ArrowForwardIos color="inherit" style={{ fontSize: 40 }} />
     </div>
   );
 }
@@ -26,7 +26,7 @@ function PrevArrow(props: any) {
   const classes = useStyles();
   return (
     <div className={classnames(classes.arrow, 'prevArrow')} onClick={onClick}>
-      <ArrowBackIos color="inherit" fontSize="large" />
+      <ArrowBackIos color="inherit" style={{ fontSize: 40 }} />
     </div>
   );
 }
