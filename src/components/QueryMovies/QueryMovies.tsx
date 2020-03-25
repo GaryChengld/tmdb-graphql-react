@@ -66,7 +66,7 @@ function QueryMovies(props: QueryMoviesProps) {
   const page = utils.getPageNoFromUrl(props, PAGE_PARAM);
   const region = process.env.REACT_APP_REGION;
   const variables = { page, region };
-  const fetchPolicy = 'cache-and-network';
+  const fetchPolicy = 'cache-first';
   const { data, loading } = useQuery(query, { variables, fetchPolicy });
 
   const loadPage = (pageNo: number) => {

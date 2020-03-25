@@ -23,9 +23,8 @@ const useStyle = makeStyles(theme => ({
   root: {
     height: '100%',
     display: 'flex',
-  },
-  grow: {
-    flexGrow: 1,
+    backgroundColor: 'rgba(60,60,60,0.6)',
+    backgroundBlendMode: 'color',
   },
   cardMedia: {
     width: 120,
@@ -78,7 +77,7 @@ export default function MovieCard(props: MovieCardProps) {
   const video: boolean = movie.videos && movie.videos.length > 0;
   return (
     <>
-      <Card className={classes.root} raised>
+      <Card className={classes.root}>
         <Link component={ReactLink} to={`/movie/${movie.id}`} underline="none">
           <CardMedia className={classes.cardMedia} component="img" image={imageUrl} title={movie.title} />
         </Link>
@@ -98,7 +97,7 @@ export default function MovieCard(props: MovieCardProps) {
               </Typography>
             )}
             {movie.genres.map((g: any) => (
-              <Chip key={g.name} className={classes.clip} size="medium" label={g.name} />
+              <Chip key={g.name} className={classes.clip} size="medium" label={g.name} variant="outlined" />
             ))}
           </CardContent>
           <CardActions className={classes.controls} disableSpacing>

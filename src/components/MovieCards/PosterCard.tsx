@@ -28,7 +28,7 @@ export default function PosterCard(props: MovieCardProps) {
     },
   }));
   const classes = useStyle();
-  const imageUrl = movie.posterPath ? movie.posterPath : 'not_found.png';
+  const imageUrl = movie.posterPath ? movie.posterPath : '/not_found.png';
   return (
     <Link to={`/movie/${movie.id}`} style={{ textDecoration: 'none' }}>
       <Card className={classes.card}>

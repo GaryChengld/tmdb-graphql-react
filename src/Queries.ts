@@ -103,3 +103,64 @@ export const topRatedMoviesQuery = gql`
   }
   ${listMovieFragment}
 `;
+
+export const movieDetailQuery = gql`
+  query movieDetail($id: Int!) {
+    movieDetail(id: $id) {
+      id
+      title
+      imdbId
+      originalLanguage {
+        englishName
+        name
+      }
+      spokenLanguages {
+        englishName
+        name
+      }
+      runtime
+      releaseDate
+      releaseYear
+      budget
+      revenue
+      voteAverage
+      overview
+      posterPath(size: L)
+      backdropPath
+      genres {
+        name
+      }
+      casts {
+        id
+        name
+        character
+        profilePath(size: L)
+      }
+      crews {
+        id
+        name
+        job
+        profilePath(size: L)
+      }
+      director {
+        id
+        name
+        profilePath(size: L)
+      }
+      images {
+        posters
+        backdrops
+      }
+      videos {
+        type
+        key
+      }
+      recommendations {
+        results {
+          ...BasicMovieInfo
+        }
+      }
+    }
+  }
+  ${basicMovieFragment}
+`;

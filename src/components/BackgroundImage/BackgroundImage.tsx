@@ -5,20 +5,22 @@ type BackgroundImageProps = {
   imagePath?: string;
 };
 
-const BackgroundImage: React.FC<BackgroundImageProps> = ({ imagePath, children }) => {
-  const usestyles = makeStyles(() => ({
-    background: {
-      backgroundRepeat: 'no-repeat',
-      backgroundAttachment: 'fixed',
-      backgroundSize: 'cover',
-      backgroundImage: `url('${imagePath}')`,
-      backgroundColor: 'rgba(32, 32, 32, 0.8)',
-      backgroundBlendMode: 'color',
-    },
-  }));
-  const classes = usestyles();
+const useStyles = makeStyles(() => ({
+  background: {
+    backgroundRepeat: 'no-repeat',
+    backgroundAttachment: 'fixed',
+    backgroundSize: 'cover',
+    backgroundImage: (props: BackgroundImageProps) => `url('${props.imagePath}')`,
+    backgroundColor: 'rgba(30, 30, 30, 0.8)',
+    backgroundBlendMode: 'color',
+  },
+}));
+
+const BackgroundImage: React.FC<BackgroundImageProps> = ({ children, ...props }) => {
+  const classes = useStyles(props);
+  const { imagePath } = props;
   if (imagePath) {
-    return <div className={classes.background}> {children}</div>;
+    return <div className={classes.background}>{children}</div>;
   } else {
     return <div>{children}</div>;
   }
