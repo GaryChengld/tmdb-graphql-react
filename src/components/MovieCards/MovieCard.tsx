@@ -1,16 +1,7 @@
 import React, { useState } from 'react';
 import { Link as ReactLink } from 'react-router-dom';
-import {
-  Typography,
-  Card,
-  CardContent,
-  CardMedia,
-  Chip,
-  CardActions,
-  IconButton,
-  Link,
-  Tooltip,
-} from '@material-ui/core';
+import { Typography, Button, Chip, Link, Tooltip } from '@material-ui/core';
+import { Card, CardContent, CardMedia, CardActions } from '@material-ui/core';
 import { withStyles, Theme, makeStyles } from '@material-ui/core/styles';
 import DescriptionIcon from '@material-ui/icons/Description';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
@@ -25,6 +16,11 @@ const useStyle = makeStyles(theme => ({
     display: 'flex',
     backgroundColor: 'rgba(60,60,60,0.6)',
     backgroundBlendMode: 'color',
+    transition: 'all 0.4s',
+    '&:hover': {
+      transform: 'scale(1.05)',
+      transition: 'all 0.4s',
+    },
   },
   cardMedia: {
     width: 120,
@@ -56,6 +52,9 @@ const useStyle = makeStyles(theme => ({
   },
   controls: {
     paddingLeft: theme.spacing(1),
+  },
+  button: {
+    marginLeft: theme.spacing(1),
   },
 }));
 
@@ -102,18 +101,20 @@ export default function MovieCard(props: MovieCardProps) {
           </CardContent>
           <CardActions className={classes.controls} disableSpacing>
             {video && (
-              <HtmlTooltip title="Play trailer">
-                <IconButton color="default" onClick={() => setOpenVideo(true)}>
-                  <PlayCircleOutlineIcon />
-                </IconButton>
-              </HtmlTooltip>
+              <Button
+                variant="outlined"
+                size="small"
+                className={classes.button}
+                startIcon={<PlayCircleOutlineIcon />}
+                onClick={() => setOpenVideo(true)}
+              >
+                Play trailer
+              </Button>
             )}
             <Link component={ReactLink} to={`/movie/${movie.id}`} underline="none">
-              <HtmlTooltip title="More info...">
-                <IconButton color="default">
-                  <DescriptionIcon />
-                </IconButton>
-              </HtmlTooltip>
+              <Button variant="outlined" size="small" className={classes.button} startIcon={<DescriptionIcon />}>
+                More info...
+              </Button>
             </Link>
           </CardActions>
         </div>

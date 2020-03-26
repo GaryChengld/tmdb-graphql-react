@@ -1,4 +1,4 @@
-import { red, blue, lightBlue, yellow, green } from '@material-ui/core/colors';
+import { red, blue, lightBlue, yellow, green, grey } from '@material-ui/core/colors';
 import { PaletteType } from '@material-ui/core';
 
 const white = '#FFF';
@@ -57,6 +57,9 @@ const palleteOptions = {
   background: {
     paper: 'rgb(60, 60, 60)',
     default: 'rgb(45, 45, 45)',
+  },
+  text: {
+    secondary: grey[400],
   },
   border: '#DFE3E8',
   oxfordBlue: 'rgba(5, 41, 73, 1)',

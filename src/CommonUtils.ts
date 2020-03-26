@@ -22,3 +22,7 @@ export function getPageNoFromUrl(props: RouteComponentProps, pageParamName: stri
   }
   return page;
 }
+
+export function formatMoney(num: number) {
+  return '$' + num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+}
