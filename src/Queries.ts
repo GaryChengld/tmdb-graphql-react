@@ -18,9 +18,10 @@ const listMovieFragment = gql`
     posterPath(size: L)
     backdropPath
     genres {
+      id
       name
     }
-    videos(type: "Trailer") {
+    trailer {
       key
     }
   }
@@ -32,7 +33,7 @@ export const homePageQuery = gql`
       results {
         ...BasicMovieInfo
         voteAverage
-        videos(type: "Trailer") {
+        trailer {
           key
         }
       }
@@ -128,6 +129,7 @@ export const movieDetailQuery = gql`
       posterPath(size: L)
       backdropPath
       genres {
+        id
         name
       }
       casts {
@@ -150,6 +152,9 @@ export const movieDetailQuery = gql`
       images {
         posters
         backdrops
+      }
+      trailer {
+        key
       }
       videos {
         type

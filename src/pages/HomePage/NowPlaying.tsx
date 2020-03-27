@@ -36,7 +36,7 @@ function renderMovie(movies: any[], index: number) {
 
 export default function NowPlaying(props: MoviesProps) {
   const { movies } = props;
-  const moviesWithVideo = movies.filter(m => m.videos.length > 0);
+  const moviesWithVideo = movies.filter(m => m.trailer);
   return (
     <>
       <Grid container alignItems="center">

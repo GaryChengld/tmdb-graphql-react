@@ -5,6 +5,7 @@ import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 
 import { VideoPlayer } from '../';
 import { MovieCardProps } from './';
+import * as utils from '../../CommonUtils';
 
 const useStyle = makeStyles(theme => ({
   card: {
@@ -35,7 +36,7 @@ export default function TrailerCard(props: MovieCardProps) {
   const [open, setOpen] = useState(false);
   const classes = useStyle();
   const { movie } = props;
-  const trailerThumbnail = `https://img.youtube.com/vi/${movie.videos[0].key}/maxresdefault.jpg`;
+  const trailerThumbnail = utils.getTrailerThumbnail(movie.trailer.key);
 
   return (
     <>
@@ -45,7 +46,7 @@ export default function TrailerCard(props: MovieCardProps) {
           <PlayCircleOutlineIcon className={classes.icon} />
         </IconButton>
       </Card>
-      {open && <VideoPlayer movie={movie} videoKey={movie.videos[0].key} open={open} onClose={() => setOpen(false)} />}
+      {open && <VideoPlayer movie={movie} videoKey={movie.trailer.key} open={open} onClose={() => setOpen(false)} />}
     </>
   );
 }

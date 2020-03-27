@@ -11,6 +11,7 @@ import * as utils from '../../CommonUtils';
 interface QueryMoviesProps extends RouteComponentProps {
   title: string;
   query: DocumentNode;
+  parentVariables?: any;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -61,11 +62,12 @@ function QueryMovies(props: QueryMoviesProps) {
   const {
     title,
     query,
+    parentVariables,
     location: { pathname },
   } = props;
   const page = utils.getPageNoFromUrl(props, PAGE_PARAM);
   const region = process.env.REACT_APP_REGION;
-  const variables = { page, region };
+  const variables = parentVariables ? { page, region, ...parentVariables } : { page, region };
   const fetchPolicy = 'cache-first';
   const { data, loading } = useQuery(query, { variables, fetchPolicy });
 

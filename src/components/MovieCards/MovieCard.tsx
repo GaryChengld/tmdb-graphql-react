@@ -72,8 +72,7 @@ export default function MovieCard(props: MovieCardProps) {
   const [openVideo, setOpenVideo] = useState(false);
   const classes = useStyle();
   const { movie } = props;
-  const imageUrl = movie.posterPath ? movie.posterPath : '/not_found.png';
-  const video: boolean = movie.videos && movie.videos.length > 0;
+  const imageUrl = movie.posterPath ? movie.posterPath : '/not_found.png';  
   return (
     <>
       <Card className={classes.root}>
@@ -100,7 +99,7 @@ export default function MovieCard(props: MovieCardProps) {
             ))}
           </CardContent>
           <CardActions className={classes.controls} disableSpacing>
-            {video && (
+            {movie.trailer && (
               <Button
                 variant="outlined"
                 size="small"
@@ -120,12 +119,7 @@ export default function MovieCard(props: MovieCardProps) {
         </div>
       </Card>
       {openVideo && (
-        <VideoPlayer
-          movie={movie}
-          videoKey={movie.videos[0].key}
-          open={openVideo}
-          onClose={() => setOpenVideo(false)}
-        />
+        <VideoPlayer movie={movie} videoKey={movie.trailer.key} open={openVideo} onClose={() => setOpenVideo(false)} />
       )}
     </>
   );

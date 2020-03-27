@@ -31,13 +31,13 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   cardMedia: {
     paddingTop: theme.spacing(0),
-    [theme.breakpoints.up('md')]: {
-      height: 576,
-      width: 1024,
-    },
     [theme.breakpoints.down('md')]: {
       height: 405,
       width: 720,
+    },
+    [theme.breakpoints.between('md', 'lg')]: {
+      height: 576,
+      width: 1024,
     },
   },
 }));

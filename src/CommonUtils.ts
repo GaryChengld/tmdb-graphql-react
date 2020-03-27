@@ -20,9 +20,16 @@ export function getPageNoFromUrl(props: RouteComponentProps, pageParamName: stri
   if (isNaN(page)) {
     page = 1;
   }
+  if (page > 500) {
+    page = 1;
+  }
   return page;
 }
 
 export function formatMoney(num: number) {
   return '$' + num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+}
+
+export function getTrailerThumbnail(key: string) {
+  return `https://img.youtube.com/vi/${key}/maxresdefault.jpg`;
 }
