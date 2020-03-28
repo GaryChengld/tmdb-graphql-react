@@ -119,7 +119,12 @@ export default function MovieCard(props: MovieCardProps) {
         </div>
       </Card>
       {openVideo && (
-        <VideoPlayer movie={movie} videoKey={movie.trailer.key} open={openVideo} onClose={() => setOpenVideo(false)} />
+        <VideoPlayer
+          title={movie.trailer.name}
+          videoKey={movie.trailer.key}
+          open={openVideo}
+          onClose={() => setOpenVideo(false)}
+        />
       )}
     </>
   );

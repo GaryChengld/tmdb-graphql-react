@@ -18,11 +18,10 @@ const useStyle = makeStyles(theme => ({
   },
   overlay: {
     position: 'absolute',
-    top: '0',
-    left: '0',
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
+    top: '50%',
+    left: '50%',
+    '-ms-transform': 'translate(-50%, -50%)',
+    transform: 'translate(-50%, -50%)',
   },
   icon: {
     fontSize: 96,
@@ -35,8 +34,11 @@ const useStyle = makeStyles(theme => ({
 export default function TrailerCard(props: MovieCardProps) {
   const [open, setOpen] = useState(false);
   const classes = useStyle();
-  const { movie } = props;
-  const trailerThumbnail = utils.getTrailerThumbnail(movie.trailer.key);
+  const {
+    movie,
+    movie: { trailer },
+  } = props;
+  const trailerThumbnail = utils.getTrailerThumbnail(trailer.key);
 
   return (
     <>
@@ -46,7 +48,7 @@ export default function TrailerCard(props: MovieCardProps) {
           <PlayCircleOutlineIcon className={classes.icon} />
         </IconButton>
       </Card>
-      {open && <VideoPlayer movie={movie} videoKey={movie.trailer.key} open={open} onClose={() => setOpen(false)} />}
+      {open && <VideoPlayer title={trailer.name} videoKey={trailer.key} open={open} onClose={() => setOpen(false)} />}
     </>
   );
 }

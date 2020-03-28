@@ -5,7 +5,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { Theme, makeStyles } from '@material-ui/core/styles';
 
 export interface VideoPlayerProps {
-  movie: any;
+  title: string;
   videoKey: any;
   open: boolean;
   onClose?: (value?: string) => void;
@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme: Theme) => ({
 }));
 
 function VidepPlayer(props: VideoPlayerProps) {
-  const { movie, videoKey, open, onClose } = props;
+  const { title, videoKey, open, onClose } = props;
   const classes = useStyles();
   const trailerUrl = `https://www.youtube.com/embed/${videoKey}?autoplay=1&autohide=2&modestbranding=1&fs=1&autohide=1&`;
 
@@ -64,7 +64,7 @@ function VidepPlayer(props: VideoPlayerProps) {
     >
       <DialogTitle disableTypography className={classes.root}>
         <Typography variant="h6" color="inherit">
-          {movie.title}
+          {title}
         </Typography>
         <IconButton aria-label="close" className={classes.closeButton} onClick={handleClose}>
           <CloseIcon />

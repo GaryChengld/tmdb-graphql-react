@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { Grid, Typography, Chip } from '@material-ui/core/';
-import { Card, CardContent, CardMedia, Avatar, Tooltip, Button } from '@material-ui/core/';
+import { Grid, Typography, Chip, IconButton } from '@material-ui/core/';
+import { Card, CardContent, CardMedia, Avatar, Tooltip } from '@material-ui/core/';
 import { makeStyles, withStyles, Theme } from '@material-ui/core/styles';
 import StarRateIcon from '@material-ui/icons/StarRate';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
@@ -31,24 +31,39 @@ interface CastAvatarProps {
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    marginTop: 120,
-    height: '100%',
     position: 'relative',
+    height: '100%',
     display: 'flex',
     backgroundColor: 'rgba(60,60,60,0.6)',
     backgroundBlendMode: 'color',
   },
   cardImage: {
+    position: 'relative',
+  },
+  cardMedia: {
     width: 300,
     height: 480,
     paddingTop: theme.spacing(0),
+    paddingLeft: theme.spacing(0),
+  },
+  playButton: {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    '-ms-transform': 'translate(-50%, -50%)',
+    transform: 'translate(-50%, -50%)',
+  },
+  playIcon: {
+    fontSize: 72,
+    '&:hover': {
+      color: theme.palette.secondary.main,
+    },
   },
   cardDetails: {
     flexGrow: 1,
     flexDirection: 'column',
   },
   cardContent: {
-    flex: '1 0 auto',
     padding: theme.spacing(2),
   },
   releaseYear: {
@@ -78,9 +93,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(0),
     marginBottom: theme.spacing(0),
   },
-  button: {
-    marginLeft: theme.spacing(2),
-  },
 }));
 
 const LightTooltip = withStyles((theme: Theme) => ({
@@ -94,8 +106,11 @@ const LightTooltip = withStyles((theme: Theme) => ({
 
 export default function MovieInfo(props: MovieProps) {
   const classes = useStyles();
+  const {
+    movie,
+    movie: { trailer },
+  } = props;
   const [openVideo, setOpenVideo] = useState(false);
-  const { movie } = props;
   const imagePath = movie.posterPath ? movie.posterPath : '/not_found.png';
   const { originalLanguage } = movie;
   const casts = movie.casts.slice(0, 8);
@@ -106,7 +121,14 @@ export default function MovieInfo(props: MovieProps) {
   return (
     <>
       <Card className={classes.root}>
-        <CardMedia className={classes.cardImage} component="img" image={imagePath} />
+        <div className={classes.cardImage}>
+          <CardMedia className={classes.cardMedia} component="img" image={imagePath} />
+          {trailer && (
+            <IconButton aria-label="play" className={classes.playButton} onClick={() => setOpenVideo(true)}>
+              <PlayCircleOutlineIcon className={classes.playIcon} color="action" />
+            </IconButton>
+          )}
+        </div>
         <div className={classes.cardDetails}>
           <CardContent className={classes.cardContent}>
             <div>
@@ -135,17 +157,6 @@ export default function MovieInfo(props: MovieProps) {
                 {movie.genres.map((g: any) => (
                   <Chip key={g.name} className={classes.genres} size="medium" label={g.name} variant="outlined" />
                 ))}
-                {movie.trailer && (
-                  <Button
-                    variant="outlined"
-                    size="medium"
-                    className={classes.button}
-                    startIcon={<PlayCircleOutlineIcon />}
-                    onClick={() => setOpenVideo(true)}
-                  >
-                    Play trailer
-                  </Button>
-                )}
                 <LabelText label="Overview" content={movie.overview} />
                 <Label label="Director" />
                 <div className={classes.avatar}>
@@ -176,7 +187,7 @@ export default function MovieInfo(props: MovieProps) {
         </div>
       </Card>
       {openVideo && (
-        <VideoPlayer movie={movie} videoKey={movie.trailer.key} open={openVideo} onClose={() => setOpenVideo(false)} />
+        <VideoPlayer title={trailer.name} videoKey={trailer.key} open={openVideo} onClose={() => setOpenVideo(false)} />
       )}
     </>
   );

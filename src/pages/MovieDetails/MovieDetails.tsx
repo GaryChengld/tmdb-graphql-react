@@ -22,6 +22,9 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: 'flex',
   },
+  movieInfo: {
+    marginTop: 120,
+  },
 }));
 
 function getBackdrop(movie: any): string | undefined {
@@ -46,7 +49,9 @@ function MovieDetailInfo(props: MovieProps) {
         <div className={classes.root}>
           <Grid container>
             <Grid item xs={12}>
-              <MovieInfo movie={movie} />
+              <div className={classes.movieInfo}>
+                <MovieInfo movie={movie} />
+              </div>
             </Grid>
           </Grid>
         </div>

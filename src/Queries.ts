@@ -22,6 +22,7 @@ const listMovieFragment = gql`
       name
     }
     trailer {
+      name
       key
     }
   }
@@ -34,6 +35,7 @@ export const homePageQuery = gql`
         ...BasicMovieInfo
         voteAverage
         trailer {
+          name
           key
         }
       }
@@ -154,9 +156,11 @@ export const movieDetailQuery = gql`
         backdrops
       }
       trailer {
+        name
         key
       }
       videos {
+        name
         type
         key
       }
