@@ -72,7 +72,7 @@ function Cast(props: CastProps) {
 export default function Casts(props: CastsProps) {
   const { casts } = props;
   const classes = useStyles();
-  const displayCasts = casts.slice(0, 12);
+  const displayCasts = casts.slice(0, 6);
   return (
     <div className={classes.root}>
       <Grid container spacing={0}>
