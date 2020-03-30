@@ -4,10 +4,10 @@ import { Container, Grid } from '@material-ui/core/';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useQuery } from '@apollo/react-hooks';
 
-
 import * as queries from '../../Queries';
 import { Loading, BackgroundImage } from '../../components';
 import MovieInfo from './MovieInfo';
+import Casts from './Casts';
 
 interface PathParams {
   id: string;
@@ -22,8 +22,10 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: 'flex',
   },
-  movieInfo: {
-    marginTop: 120,
+  content: {
+    marginTop: 200,
+    backgroundColor: 'rgba(60,60,60,0.6)',
+    backgroundBlendMode: 'color',
   },
 }));
 
@@ -47,12 +49,18 @@ function MovieDetailInfo(props: MovieProps) {
     <BackgroundImage imagePath={backdrop}>
       <Container maxWidth="lg">
         <div className={classes.root}>
-          <Grid container>
-            <Grid item xs={12}>
-              <div className={classes.movieInfo}>
-                <MovieInfo movie={movie} />
-              </div>
-            </Grid>
+          <Grid container spacing={0}>
+            <div className={classes.content}>
+              <Grid item xs={12}>
+                <div>
+                  <MovieInfo movie={movie} />
+                </div>
+              </Grid>
+              <Grid xs={10}>
+                <div>{movie.casts && movie.casts.length > 0 && <Casts casts={movie.casts} />}</div>
+              </Grid>
+              <Grid xs={2}></Grid>
+            </div>
           </Grid>
         </div>
       </Container>

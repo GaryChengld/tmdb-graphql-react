@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { Grid, Typography, Chip, IconButton } from '@material-ui/core/';
-import { Card, CardContent, CardMedia, Avatar, Tooltip } from '@material-ui/core/';
-import { makeStyles, withStyles, Theme } from '@material-ui/core/styles';
+import { Grid, Typography, Chip, Button } from '@material-ui/core/';
+import { Card, CardContent, CardMedia, Avatar } from '@material-ui/core/';
+import { makeStyles, Theme } from '@material-ui/core/styles';
 import StarRateIcon from '@material-ui/icons/StarRate';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 
@@ -21,12 +21,8 @@ interface LabelProps {
   label: string;
 }
 
-interface CrewAvatarProps {
-  crew: any;
-}
-
-interface CastAvatarProps {
-  cast: any;
+interface CrewsProps {
+  crews: any[];
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -34,27 +30,27 @@ const useStyles = makeStyles((theme: Theme) => ({
     position: 'relative',
     height: '100%',
     display: 'flex',
-    backgroundColor: 'rgba(60,60,60,0.6)',
-    backgroundBlendMode: 'color',
+    backgroundColor: 'transparent',
+    borderRadius: 0,
+    boxShadow: 'none',
   },
   cardImage: {
     position: 'relative',
   },
   cardMedia: {
     width: 300,
-    height: 480,
+    height: '100%',
     paddingTop: theme.spacing(0),
     paddingLeft: theme.spacing(0),
   },
   playButton: {
     position: 'absolute',
-    top: '50%',
+    width: '100%',
+    top: '100%',
     left: '50%',
-    '-ms-transform': 'translate(-50%, -50%)',
-    transform: 'translate(-50%, -50%)',
-  },
-  playIcon: {
-    fontSize: 72,
+    transform: 'translate(-50%, -100%)',
+    textTransform: 'none',
+    fontWeight: 'bold',
     '&:hover': {
       color: theme.palette.secondary.main,
     },
@@ -69,15 +65,27 @@ const useStyles = makeStyles((theme: Theme) => ({
   releaseYear: {
     marginLeft: theme.spacing(1),
   },
+  originalTitle: {
+    marginTop: theme.spacing(0),
+    fontStyle: 'italic',
+  },
+  rate: {
+    marginTop: theme.spacing(1),
+  },
   starIcon: {
     marginTop: theme.spacing(2),
     fontSize: 40,
   },
   genres: {
-    marginRight: theme.spacing(1),
+    marginLeft: theme.spacing(1),
+  },
+  tagline: {
+    marginTop: theme.spacing(1),
+    color: theme.palette.secondary.main,
+    fontStyle: 'italic',
   },
   label: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(1),
     marginBottom: theme.spacing(0),
   },
   text: {
@@ -93,16 +101,11 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(0),
     marginBottom: theme.spacing(0),
   },
-}));
-
-const LightTooltip = withStyles((theme: Theme) => ({
-  tooltip: {
-    backgroundColor: theme.palette.common.white,
-    color: 'rgba(0, 0, 0, 0.87)',
-    boxShadow: theme.shadows[1],
-    fontSize: 11,
+  writers: {
+    marginTop: theme.spacing(0),
+    marginLeft: theme.spacing(2),
   },
-}))(Tooltip);
+}));
 
 export default function MovieInfo(props: MovieProps) {
   const classes = useStyles();
@@ -112,36 +115,48 @@ export default function MovieInfo(props: MovieProps) {
   } = props;
   const [openVideo, setOpenVideo] = useState(false);
   const imagePath = movie.posterPath ? movie.posterPath : '/not_found.png';
-  const { originalLanguage } = movie;
-  const casts = movie.casts.slice(0, 8);
+  const { originalLanguage, originalTitle, title } = movie;
   let language = originalLanguage.englishName;
   if (originalLanguage.englishName !== originalLanguage.name) {
     language = `${originalLanguage.englishName} (${originalLanguage.name})`;
   }
+  const showOriginalTitle = originalTitle && originalTitle !== title;
   return (
     <>
       <Card className={classes.root}>
         <div className={classes.cardImage}>
           <CardMedia className={classes.cardMedia} component="img" image={imagePath} />
           {trailer && (
-            <IconButton aria-label="play" className={classes.playButton} onClick={() => setOpenVideo(true)}>
-              <PlayCircleOutlineIcon className={classes.playIcon} color="action" />
-            </IconButton>
+            <Button
+              startIcon={<PlayCircleOutlineIcon />}
+              variant="contained"
+              color="primary"
+              size="large"
+              className={classes.playButton}
+              onClick={() => setOpenVideo(true)}
+            >
+              Play Trailer
+            </Button>
           )}
         </div>
         <div className={classes.cardDetails}>
           <CardContent className={classes.cardContent}>
             <div>
               <Typography gutterBottom variant="h4" component="span">
-                {movie.title}
+                {title}
               </Typography>
               <Typography className={classes.releaseYear} variant="h5" component="span" color="textSecondary">
                 ({movie.releaseYear})
               </Typography>
+              {showOriginalTitle && (
+                <Typography className={classes.originalTitle} variant="body1" color="textSecondary">
+                  {originalTitle} (original title)
+                </Typography>
+              )}
             </div>
             <Grid container spacing={4} justify="space-between">
               <Grid item xs={9}>
-                <Grid container direction="row" alignItems="center">
+                <Grid container color="primary" className={classes.rate} direction="row" alignItems="center">
                   <Grid item>
                     <StarRateIcon color="secondary" fontSize="large" />
                   </Grid>
@@ -153,27 +168,20 @@ export default function MovieInfo(props: MovieProps) {
                       /10
                     </Typography>
                   </Grid>
+                  <Grid item>
+                    {movie.genres.map((g: any) => (
+                      <Chip key={g.name} className={classes.genres} size="medium" label={g.name} variant="outlined" />
+                    ))}
+                  </Grid>
                 </Grid>
-                {movie.genres.map((g: any) => (
-                  <Chip key={g.name} className={classes.genres} size="medium" label={g.name} variant="outlined" />
-                ))}
+                {movie.tagline && (
+                  <Typography className={classes.tagline} variant="body1" color="textSecondary">
+                    {movie.tagline}
+                  </Typography>
+                )}
                 <LabelText label="Overview" content={movie.overview} />
-                <Label label="Director" />
-                <div className={classes.avatar}>
-                  <Grid container direction="row" alignItems="center" spacing={2}>
-                    {movie.director.map((d: any) => (
-                      <CrewAvatar key={d.id} crew={d} />
-                    ))}
-                  </Grid>
-                </div>
-                <Label label="Stars" />
-                <div className={classes.avatar}>
-                  <Grid container direction="row" alignItems="center" spacing={2}>
-                    {casts.map((c: any) => (
-                      <CastAvatar key={c.id} cast={c} />
-                    ))}
-                  </Grid>
-                </div>
+                <Directors crews={movie.directors} />
+                <Writers crews={movie.writers} />
               </Grid>
               <Grid item xs={3}>
                 {movie.runtime > 0 && <LabelText label="Running time" content={movie.runtime + ' Minutes'} />}
@@ -216,31 +224,61 @@ function Label(props: LabelProps) {
   );
 }
 
-function CrewAvatar(props: CrewAvatarProps) {
-  const { crew } = props;
-  return (
-    <Grid item>
-      <Grid container direction="row" alignItems="center" spacing={1}>
-        <Grid item>
-          <Avatar src={crew.profilePath ? crew.profilePath : 'broken_image'} />
-        </Grid>
-        <Grid item>
-          <Typography variant="body1" color="textSecondary">
-            {crew.name}
-          </Typography>
-        </Grid>
-      </Grid>
-    </Grid>
-  );
+function Directors(props: CrewsProps) {
+  const classes = useStyles();
+  const { crews } = props;
+  if (crews && crews.length > 0) {
+    const label = crews.length > 1 ? 'Directors' : 'Director';
+    return (
+      <>
+        <Label label={label} />
+        <div className={classes.avatar}>
+          <Grid container direction="row" alignItems="center" spacing={2}>
+            {crews.map((crew: any) => (
+              <Grid item key={crew.creditId}>
+                <Grid container direction="row" alignItems="center" spacing={1}>
+                  <Grid item>
+                    <Avatar src={crew.profilePath ? crew.profilePath : 'broken_image'} />
+                  </Grid>
+                  <Grid item>
+                    <Typography variant="body1">{crew.name}</Typography>
+                  </Grid>
+                </Grid>
+              </Grid>
+            ))}
+          </Grid>
+        </div>
+      </>
+    );
+  } else {
+    return <></>;
+  }
 }
 
-function CastAvatar(props: CastAvatarProps) {
-  const { cast } = props;
-  return (
-    <Grid item>
-      <LightTooltip title={cast.name}>
-        <Avatar alt={cast.name} src={cast.profilePath ? cast.profilePath : 'broken_image'} />
-      </LightTooltip>
-    </Grid>
-  );
+function Writers(props: CrewsProps) {
+  const classes = useStyles();
+  const { crews } = props;
+  if (crews && crews.length > 0) {
+    const label = crews.length > 1 ? 'Writers' : 'Writer';
+    return (
+      <>
+        <Label label={label} />
+        <div className={classes.writers}>
+          {crews.map((crew: any, index: number) => (
+            <span key={crew.credit}>
+              {index > 0 && <>,&nbsp;&nbsp;</>}
+              <Typography variant="body1" component="span">
+                {crew.name}
+              </Typography>
+              <Typography variant="body1" color="textSecondary" component="span">
+                &nbsp;({crew.job})
+              </Typography>
+            </span>
+          ))}
+        </div>
+      </>
+    );
+  } else {
+    return <></>;
+  }
 }

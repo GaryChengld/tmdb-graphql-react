@@ -112,6 +112,8 @@ export const movieDetailQuery = gql`
     movieDetail(id: $id) {
       id
       title
+      originalTitle
+      tagline
       imdbId
       originalLanguage {
         englishName
@@ -135,21 +137,30 @@ export const movieDetailQuery = gql`
         name
       }
       casts {
-        id
+        creditId
+        personId: id
         name
         character
         profilePath(size: L)
       }
       crews {
-        id
+        creditId
+        personId: id
         name
         job
         profilePath(size: L)
       }
-      director {
-        id
+      directors {
+        creditId
+        personId: id
         name
         profilePath(size: L)
+      }
+      writers {
+        creditId
+        personId: id
+        name
+        job
       }
       images {
         posters

@@ -7,7 +7,7 @@ import { MovieCardProps } from './types';
 import { MovieRating } from '..';
 import * as utils from '../../CommonUtils';
 
-const useStyle = makeStyles(theme => ({
+const useStyles = makeStyles(theme => ({
   card: {
     width: 190,
     flexDirection: 'column',
@@ -33,7 +33,7 @@ const useStyle = makeStyles(theme => ({
 }));
 
 export default function SimpleMovieCard(props: MovieCardProps) {
-  const classes = useStyle();
+  const classes = useStyles();
   const { movie } = props;
   const imageUrl = movie.posterPath ? movie.posterPath : '/not_found.png';
   return (
