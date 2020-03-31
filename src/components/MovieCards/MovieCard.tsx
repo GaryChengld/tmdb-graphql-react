@@ -76,7 +76,7 @@ export default function MovieCard(props: MovieCardProps) {
   return (
     <>
       <Card className={classes.root}>
-        <Link component={ReactLink} to={`/movie/${movie.id}`} underline="none">
+        <Link component={ReactLink} to={utils.getMovieDetailPath(movie.id)} underline="none">
           <CardMedia className={classes.cardMedia} component="img" image={imageUrl} title={movie.title} />
         </Link>
         <div className={classes.details}>
@@ -110,7 +110,7 @@ export default function MovieCard(props: MovieCardProps) {
                 Play trailer
               </Button>
             )}
-            <Link component={ReactLink} to={`/movie/${movie.id}`} underline="none">
+            <Link component={ReactLink} to={utils.getMovieDetailPath(movie.id)} underline="none">
               <Button variant="outlined" size="small" className={classes.button} startIcon={<DescriptionIcon />}>
                 More info...
               </Button>

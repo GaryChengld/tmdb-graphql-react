@@ -37,7 +37,7 @@ export default function SimpleMovieCard(props: MovieCardProps) {
   const { movie } = props;
   const imageUrl = movie.posterPath ? movie.posterPath : '/not_found.png';
   return (
-    <Link to={`/movie/${movie.id}`} style={{ textDecoration: 'none' }}>
+    <Link to={utils.getMovieDetailPath(movie.id)} style={{ textDecoration: 'none' }}>
       <Card className={classes.card}>
         <CardMedia
           className={classes.cardMedia}

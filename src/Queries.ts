@@ -143,13 +143,6 @@ export const movieDetailQuery = gql`
         character
         profilePath(size: L)
       }
-      crews {
-        creditId
-        personId: id
-        name
-        job
-        profilePath(size: L)
-      }
       directors {
         creditId
         personId: id
@@ -171,6 +164,7 @@ export const movieDetailQuery = gql`
         key
       }
       videos {
+        id
         name
         type
         key
@@ -184,3 +178,32 @@ export const movieDetailQuery = gql`
   }
   ${basicMovieFragment}
 `;
+
+export const movieCastQuery = gql`
+  query movieDetail($id: Int!) {
+    movieDetail(id: $id) {
+      id
+      title
+      posterPath(size: L)
+      releaseYear
+      casts {
+        creditId
+        personId: id
+        name
+        character
+        profilePath(size: L)
+      }
+      crews {
+        creditId
+        personId: id
+        name
+        job
+        profilePath(size: L)
+      }
+      images {
+        backdrops
+      }
+    }
+  }
+`;
+

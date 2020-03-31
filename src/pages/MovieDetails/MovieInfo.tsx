@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { Grid, Typography, Chip, Button } from '@material-ui/core/';
+import { Link as ReactLink } from 'react-router-dom';
+import { Grid, Link, Typography, Chip, Button } from '@material-ui/core/';
 import { Card, CardContent, CardMedia, Avatar } from '@material-ui/core/';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import StarRateIcon from '@material-ui/icons/StarRate';
@@ -33,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: 'transparent',
     borderRadius: 0,
     boxShadow: 'none',
+    paddingBottom: theme.spacing(1),
   },
   cardImage: {
     position: 'relative',
@@ -241,7 +243,15 @@ function Directors(props: CrewsProps) {
                     <Avatar src={crew.profilePath ? crew.profilePath : 'broken_image'} />
                   </Grid>
                   <Grid item>
-                    <Typography variant="body1">{crew.name}</Typography>
+                    <Link
+                      component={ReactLink}
+                      to={utils.getPersonDetailPath(crew.personId)}
+                      variant="body1"
+                      color="textPrimary"
+                      underline="none"
+                    >
+                      {crew.name}
+                    </Link>
                   </Grid>
                 </Grid>
               </Grid>
@@ -267,9 +277,15 @@ function Writers(props: CrewsProps) {
           {crews.map((crew: any, index: number) => (
             <span key={crew.credit}>
               {index > 0 && <>,&nbsp;&nbsp;</>}
-              <Typography variant="body1" component="span">
+              <Link
+                component={ReactLink}
+                to={utils.getPersonDetailPath(crew.personId)}
+                variant="body1"
+                color="textPrimary"
+                underline="none"
+              >
                 {crew.name}
-              </Typography>
+              </Link>
               <Typography variant="body1" color="textSecondary" component="span">
                 &nbsp;({crew.job})
               </Typography>

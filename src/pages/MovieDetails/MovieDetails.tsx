@@ -8,6 +8,7 @@ import * as queries from '../../Queries';
 import { Loading, BackgroundImage } from '../../components';
 import MovieInfo from './MovieInfo';
 import Casts from './Casts';
+import Videos from './Videos';
 
 interface PathParams {
   id: string;
@@ -57,7 +58,10 @@ function MovieDetailInfo(props: MovieProps) {
                 </div>
               </Grid>
               <Grid xs={10}>
-                <div>{movie.casts && movie.casts.length > 0 && <Casts casts={movie.casts} />}</div>
+                <div>{movie.casts && movie.casts.length > 0 && <Casts casts={movie.casts} movieId={movie.id} />}</div>
+                <div>
+                  {movie.videos && movie.videos.length > 0 && <Videos videos={movie.videos} movieId={movie.id} />}
+                </div>
               </Grid>
               <Grid xs={2}></Grid>
             </div>

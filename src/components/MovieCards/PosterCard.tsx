@@ -4,6 +4,7 @@ import { Card, CardMedia } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { MovieCardProps } from './types';
+import * as utils from '../../CommonUtils';
 
 export default function PosterCard(props: MovieCardProps) {
   const { movie, opacity } = props;
@@ -30,7 +31,7 @@ export default function PosterCard(props: MovieCardProps) {
   const classes = useStyle();
   const imageUrl = movie.posterPath ? movie.posterPath : '/not_found.png';
   return (
-    <Link to={`/movie/${movie.id}`} style={{ textDecoration: 'none' }}>
+    <Link to={utils.getMovieDetailPath(movie.id)} style={{ textDecoration: 'none' }}>
       <Card className={classes.card}>
         <CardMedia className={classes.cardMedia} component="img" image={imageUrl} title={movie.title} />
       </Card>

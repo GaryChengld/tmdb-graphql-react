@@ -16,7 +16,7 @@ const useStyle = makeStyles(theme => ({
   cardMedia: {
     paddingTop: theme.spacing(0),
   },
-  overlay: {
+  botton: {
     position: 'absolute',
     top: '50%',
     left: '50%',
@@ -44,7 +44,7 @@ export default function TrailerCard(props: MovieCardProps) {
     <>
       <Card className={classes.card}>
         <CardMedia className={classes.cardMedia} component="img" image={trailerThumbnail} title={movie.title} />
-        <IconButton aria-label="play" className={classes.overlay} onClick={() => setOpen(true)}>
+        <IconButton aria-label="play" className={classes.botton} onClick={() => setOpen(true)}>
           <PlayCircleOutlineIcon className={classes.icon} />
         </IconButton>
       </Card>

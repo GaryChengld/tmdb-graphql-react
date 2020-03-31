@@ -1,8 +1,12 @@
 import React from 'react';
-import { Box, Grid, Typography, Card, CardContent, CardMedia } from '@material-ui/core';
+import { Link as ReactLink } from 'react-router-dom';
+import { Box, Grid, Link, Typography, Card, CardContent, CardMedia } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
+import * as utils from '../../CommonUtils';
+
 interface CastsProps {
+  movieId: number;
   casts: any[];
 }
 
@@ -12,14 +16,13 @@ interface CastProps {
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    padding: theme.spacing(2),
+    padding: theme.spacing(1),
     width: '100%',
     display: 'flex',
     backgroundColor: 'transparent',
   },
   header: {
-    marginLeft: theme.spacing(1),
-    marginBottom: theme.spacing(1),
+    marginLeft: theme.spacing(0),
   },
   title: {
     fontWeight: 'bold',
@@ -46,9 +49,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingBottom: theme.spacing(0),
     marginBottom: theme.spacing(0),
   },
-  name: {
-    fontWeight: 'bold',
-  },
 }));
 
 function Cast(props: CastProps) {
@@ -57,7 +57,9 @@ function Cast(props: CastProps) {
   const imageUrl = cast.profilePath ? cast.profilePath : '/not_found.png';
   return (
     <Card className={classes.card} raised>
-      <CardMedia className={classes.cardMedia} component="img" image={imageUrl} alt={''} />
+      <Link component={ReactLink} to={utils.getPersonDetailPath(cast.personId)} underline="none">
+        <CardMedia className={classes.cardMedia} component="img" image={imageUrl} alt={''} />
+      </Link>
       <CardContent className={classes.cardContent}>
         <Typography className={classes.title} align="center" variant="subtitle1">
           {cast.name}
@@ -69,23 +71,19 @@ function Cast(props: CastProps) {
     </Card>
   );
 }
+
 export default function Casts(props: CastsProps) {
-  const { casts } = props;
+  const { movieId, casts } = props;
   const classes = useStyles();
   const displayCasts = casts.slice(0, 6);
   return (
     <div className={classes.root}>
-      <Grid container spacing={0}>
+      <Grid container spacing={1}>
         <Grid item xs={12}>
           <Box className={classes.header}>
             <Typography variant="h5" color="inherit" component="span">
               Cast
             </Typography>
-            {casts.length > displayCasts.length && (
-              <Typography variant="subtitle1" color="inherit" component="span">
-                &nbsp;&nbsp;(See full cast...)
-              </Typography>
-            )}
           </Box>
         </Grid>
         <Grid item xs={12}>
@@ -97,6 +95,13 @@ export default function Casts(props: CastsProps) {
             ))}
           </Grid>
         </Grid>
+        {casts.length > displayCasts.length && (
+          <Grid item xs={12}>
+            <Link component={ReactLink} to={utils.getMovieCastPath(movieId)} variant="body1" underline="none">
+              Full cast...
+            </Link>
+          </Grid>
+        )}
       </Grid>
     </div>
   );
