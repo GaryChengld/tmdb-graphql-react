@@ -1,6 +1,6 @@
 # tmdb-graphql-react
 
-The react client of [TMDb v3 API](https://developers.themoviedb.org/3)'s GraphQL wrapper
+The react client of [TMDb GraphQL wrapper](https://github.com/GaryChengld/tmdb-graphql-java)
 
 [Demo site on Heroku](https://movie-discover.herokuapp.com/)
 
