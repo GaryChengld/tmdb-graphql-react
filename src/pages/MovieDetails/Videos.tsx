@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { Link as ReactLink } from 'react-router-dom';
-import { Box, Grid, Link, Typography, Card, CardContent, CardMedia, IconButton } from '@material-ui/core';
+import { Box, Grid, Typography, Card, GridList, GridListTile, CardMedia, IconButton } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
 
@@ -21,40 +20,36 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     position: 'relative',
     padding: theme.spacing(1),
-    width: '100%',
     display: 'flex',
     backgroundColor: 'transparent',
   },
   header: {
-    marginLeft: theme.spacing(0),
+    marginLeft: theme.spacing(1),
   },
   title: {
     fontWeight: 'bold',
   },
+  gridListContainer: {
+    width: 1000,
+    flexWrap: 'wrap',
+    overflow: 'hidden',
+  },
+  gridList: {
+    flexWrap: 'nowrap',
+    imgFullWidth: true,
+  },
   card: {
     width: 240,
-    height: '100%',
+    height: 135,
     display: 'flex',
     flexDirection: 'column',
-    backgroundColor: 'transparent',
-    transition: 'all 0.4s',
-    '&:hover': {
-      transform: 'scale(1.03)',
-      transition: 'all 0.4s',
-    },
   },
   cardImage: {
+    height: '100%',
     position: 'relative',
   },
   cardMedia: {
-    height: 135,
     paddingTop: theme.spacing(0),
-  },
-  cardContent: {
-    paddingTop: theme.spacing(0),
-    marginTop: theme.spacing(1),
-    paddingBottom: theme.spacing(0),
-    marginBottom: theme.spacing(0),
   },
   botton: {
     position: 'absolute',
@@ -89,9 +84,8 @@ function Video(props: VideoProps) {
 export default function Videos(props: VideosProps) {
   const [openVideo, setOpenVideo] = useState(false);
   const [currentVideo, setCurrentVideo] = useState({ name: '', key: '' });
-  const { movieId, videos } = props;
+  const { videos } = props;
   const classes = useStyles();
-  const displayVideos = videos.slice(0, 4);
   const playVideo = (video: any) => {
     setOpenVideo(true);
     setCurrentVideo(video);
@@ -107,22 +101,18 @@ export default function Videos(props: VideosProps) {
           </Box>
         </Grid>
         <Grid item xs={12}>
-          <Grid container spacing={2}>
-            {displayVideos.map((video: any) => (
-              <Grid item key={video.id} xs={12} sm={6} md={4} lg={3}>
-                <Video video={video} onPlay={() => playVideo(video)} />
-              </Grid>
-            ))}
-          </Grid>
+          <div className={classes.gridListContainer}>
+            <GridList cols={4} cellHeight={140} spacing={2} className={classes.gridList}>
+              {videos.map((video: any) => (
+                <GridListTile key={video.id}>
+                  <Video video={video} onPlay={() => playVideo(video)} />
+                </GridListTile>
+              ))}
+            </GridList>
+          </div>
         </Grid>
-        {videos.length > displayVideos.length && (
-          <Grid item xs={12}>
-            <Link component={ReactLink} to={utils.getMovieCastPath(movieId)} variant="body1" underline="none">
-              All videos...
-            </Link>
-          </Grid>
-        )}
       </Grid>
+
       {openVideo && currentVideo && (
         <VideoPlayer
           title={currentVideo.name}

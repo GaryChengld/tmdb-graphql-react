@@ -20,11 +20,10 @@ const useStyle = makeStyles(theme => ({
     position: 'absolute',
     top: '50%',
     left: '50%',
-    '-ms-transform': 'translate(-50%, -50%)',
     transform: 'translate(-50%, -50%)',
   },
   icon: {
-    fontSize: 96,
+    fontSize: 80,
     '&:hover': {
       color: theme.palette.secondary.main,
     },

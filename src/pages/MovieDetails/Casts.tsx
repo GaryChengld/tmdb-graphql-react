@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: 'transparent',
   },
   header: {
-    marginLeft: theme.spacing(0),
+    marginLeft: theme.spacing(1),
   },
   title: {
     fontWeight: 'bold',
@@ -48,6 +48,9 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginTop: theme.spacing(1),
     paddingBottom: theme.spacing(0),
     marginBottom: theme.spacing(0),
+  },
+  link: {
+    marginLeft: theme.spacing(1),
   },
 }));
 
@@ -97,7 +100,13 @@ export default function Casts(props: CastsProps) {
         </Grid>
         {casts.length > displayCasts.length && (
           <Grid item xs={12}>
-            <Link component={ReactLink} to={utils.getMovieCastPath(movieId)} variant="body1" underline="none">
+            <Link
+              className={classes.link}
+              component={ReactLink}
+              to={utils.getMovieCastPath(movieId)}
+              variant="body1"
+              underline="none"
+            >
               Full cast...
             </Link>
           </Grid>

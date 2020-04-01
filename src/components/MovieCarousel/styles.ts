@@ -23,10 +23,10 @@ export default makeStyles(theme => ({
       color: theme.palette.secondary.main,
     },
     '&.prevArrow': {
-      left: 0,
+      left: -20,
     },
     '&.nextArrow': {
-      right: 0,
+      right: -10,
     },
   },
 }));

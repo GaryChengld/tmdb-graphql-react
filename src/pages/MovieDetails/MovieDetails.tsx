@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   content: {
     marginTop: 200,
+    marginBottom: 40,
     backgroundColor: 'rgba(60,60,60,0.6)',
     backgroundBlendMode: 'color',
   },
@@ -35,7 +36,7 @@ function getBackdrop(movie: any): string | undefined {
     images: { backdrops },
   } = movie;
 
-  if (backdrops) {
+  if (backdrops && backdrops.length > 0) {
     return backdrops[Math.floor(Math.random() * backdrops.length)];
   } else {
     return undefined;

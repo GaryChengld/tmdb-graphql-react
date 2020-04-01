@@ -31,7 +31,7 @@ export function formatMoney(num: number) {
 }
 
 export function getTrailerThumbnail(key: string) {
-  return `https://img.youtube.com/vi/${key}/maxresdefault.jpg`;
+  return `https://img.youtube.com/vi/${key}/hqdefault.jpg`;
 }
 
 export function getMovieDetailPath(movieId: number) {
