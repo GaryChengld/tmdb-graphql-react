@@ -9,6 +9,7 @@ import { Loading, BackgroundImage } from '../../components';
 import MovieInfo from './MovieInfo';
 import Casts from './Casts';
 import Videos from './Videos';
+import Recommendations from './Recommendations';
 
 interface PathParams {
   id: string;
@@ -21,13 +22,13 @@ interface MovieProps {
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    display: 'flex',
-  },
-  content: {
-    marginTop: 200,
-    marginBottom: 40,
+    flexGrow: 1,
     backgroundColor: 'rgba(60,60,60,0.6)',
     backgroundBlendMode: 'color',
+  },
+  container: {
+    paddingTop: 200,
+    paddingBottom: 40,
   },
 }));
 
@@ -49,23 +50,25 @@ function MovieDetailInfo(props: MovieProps) {
   const classes = useStyles();
   return (
     <BackgroundImage imagePath={backdrop}>
-      <Container maxWidth="lg">
+      <Container className={classes.container} maxWidth="lg">
         <div className={classes.root}>
           <Grid container spacing={0}>
-            <div className={classes.content}>
-              <Grid item xs={12}>
-                <div>
-                  <MovieInfo movie={movie} />
-                </div>
-              </Grid>
-              <Grid xs={10}>
-                <div>{movie.casts && movie.casts.length > 0 && <Casts casts={movie.casts} movieId={movie.id} />}</div>
-                <div>
-                  {movie.videos && movie.videos.length > 0 && <Videos videos={movie.videos} movieId={movie.id} />}
-                </div>
-              </Grid>
-              <Grid xs={2}></Grid>
-            </div>
+            <Grid item xs={12}>
+              <div>
+                <MovieInfo movie={movie} />
+              </div>
+            </Grid>
+            <Grid item xs={10}>
+              <div>{movie.casts && movie.casts.length > 0 && <Casts casts={movie.casts} movieId={movie.id} />}</div>
+              <div>{movie.videos && movie.videos.length > 0 && <Videos videos={movie.videos} />}</div>
+            </Grid>
+            <Grid item xs={2}>
+              <div>
+                {movie.recommendations.results.length > 0 && (
+                  <Recommendations recommendations={movie.recommendations} />
+                )}
+              </div>
+            </Grid>
           </Grid>
         </div>
       </Container>

@@ -7,7 +7,6 @@ import { VideoPlayer } from '../../components';
 import * as utils from '../../CommonUtils';
 
 interface VideosProps {
-  movieId: number;
   videos: any[];
 }
 
@@ -19,7 +18,8 @@ interface VideoProps {
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     position: 'relative',
-    padding: theme.spacing(1),
+    paddingTop: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
     display: 'flex',
     backgroundColor: 'transparent',
   },
@@ -40,13 +40,8 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   card: {
     width: 240,
-    height: 135,
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  cardImage: {
     height: '100%',
-    position: 'relative',
+    display: 'flex',
   },
   cardMedia: {
     paddingTop: theme.spacing(0),
@@ -71,12 +66,10 @@ function Video(props: VideoProps) {
   const trailerThumbnail = utils.getTrailerThumbnail(video.key);
   return (
     <Card className={classes.card} raised>
-      <div className={classes.cardImage}>
-        <CardMedia className={classes.cardMedia} component="img" image={trailerThumbnail} alt={''} title={video.name} />
-        <IconButton aria-label="play" className={classes.botton} onClick={() => onPlay()}>
-          <PlayCircleOutlineIcon className={classes.icon} />
-        </IconButton>
-      </div>
+      <CardMedia className={classes.cardMedia} component="img" image={trailerThumbnail} alt={''} title={video.name} />
+      <IconButton aria-label="play" className={classes.botton} onClick={() => onPlay()}>
+        <PlayCircleOutlineIcon className={classes.icon} />
+      </IconButton>
     </Card>
   );
 }
@@ -102,7 +95,7 @@ export default function Videos(props: VideosProps) {
         </Grid>
         <Grid item xs={12}>
           <div className={classes.gridListContainer}>
-            <GridList cols={4} cellHeight={140} spacing={2} className={classes.gridList}>
+            <GridList cols={4} cellHeight={135} spacing={2} className={classes.gridList}>
               {videos.map((video: any) => (
                 <GridListTile key={video.id}>
                   <Video video={video} onPlay={() => playVideo(video)} />

@@ -34,6 +34,7 @@ const useStyles = makeStyles((theme: Theme) => ({
     backgroundColor: 'transparent',
     borderRadius: 0,
     boxShadow: 'none',
+    paddingTop: theme.spacing(0),
     paddingBottom: theme.spacing(1),
   },
   cardImage: {

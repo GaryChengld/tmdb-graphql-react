@@ -16,7 +16,8 @@ interface CastProps {
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    padding: theme.spacing(1),
+    paddingTop: theme.spacing(2),
+    paddingLeft: theme.spacing(2),
     width: '100%',
     display: 'flex',
     backgroundColor: 'transparent',
@@ -78,7 +79,7 @@ function Cast(props: CastProps) {
 export default function Casts(props: CastsProps) {
   const { movieId, casts } = props;
   const classes = useStyles();
-  const displayCasts = casts.slice(0, 6);
+  const displayCasts = casts.slice(0, 12);
   return (
     <div className={classes.root}>
       <Grid container spacing={1}>
@@ -90,9 +91,9 @@ export default function Casts(props: CastsProps) {
           </Box>
         </Grid>
         <Grid item xs={12}>
-          <Grid container spacing={2}>
+          <Grid container spacing={1}>
             {displayCasts.map((cast: any) => (
-              <Grid item key={cast.creditId} xs={6} sm={4} md={3} lg={2}>
+              <Grid item key={cast.creditId} xs={4} md={3} lg={2}>
                 <Cast cast={cast} />
               </Grid>
             ))}

@@ -6,29 +6,25 @@ import { makeStyles } from '@material-ui/core/styles';
 import { MovieCardProps } from './types';
 import * as utils from '../../CommonUtils';
 
+const useStyles = makeStyles(theme => ({
+  card: {
+    position: 'relative',
+    display: 'flex',
+    height: '100%',
+  },
+  cardMedia: {
+    height: '100%',
+    paddingTop: theme.spacing(0),
+    opacity: (opacity: number) => opacity,
+    '&:hover': {
+      opacity: 1,
+    },
+  },
+}));
+
 export default function PosterCard(props: MovieCardProps) {
   const { movie, opacity } = props;
-  const useStyle = makeStyles(theme => ({
-    card: {
-      position: 'relative',
-      display: 'flex',
-      height: '100%',
-    },
-    cardMedia: {
-      height: '100%',
-      paddingTop: theme.spacing(0),
-      opacity: opacity,
-      '&:hover': {
-        opacity: 1,
-      },
-    },
-    overlay: {
-      position: 'absolute',
-      bottom: '20px',
-      left: '20px',
-    },
-  }));
-  const classes = useStyle();
+  const classes = useStyles(opacity || 1);
   const imageUrl = movie.posterPath ? movie.posterPath : '/not_found.png';
   return (
     <Link to={utils.getMovieDetailPath(movie.id)} style={{ textDecoration: 'none' }}>
