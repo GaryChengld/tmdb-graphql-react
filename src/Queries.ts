@@ -159,6 +159,10 @@ export const movieDetailQuery = gql`
         posters
         backdrops
       }
+      smallImages: images {
+        posters(size: M)
+        backdrops(size: S)
+      }
       trailer {
         name
         key
@@ -206,4 +210,3 @@ export const movieCastQuery = gql`
     }
   }
 `;
-

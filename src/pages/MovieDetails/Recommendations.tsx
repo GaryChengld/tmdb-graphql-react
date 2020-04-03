@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link as ReactLink } from 'react-router-dom';
 import { Box, Grid, Typography, Card, Link, CardMedia } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
@@ -41,7 +42,7 @@ function MovieCard(props: MovieProps) {
   const classes = useStyles();
   const imageUrl = movie.posterPath ? movie.posterPath : '/not_found.png';
   return (
-    <Link href={utils.getMovieDetailPath(movie.id)}>
+    <Link component={ReactLink} to={utils.getMovieDetailPath(movie.id)}>
       <Card className={classes.card}>
         <CardMedia className={classes.cardMedia} component="img" image={imageUrl} title={movie.title} />
       </Card>

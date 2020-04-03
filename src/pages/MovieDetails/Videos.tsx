@@ -26,9 +26,6 @@ const useStyles = makeStyles((theme: Theme) => ({
   header: {
     marginLeft: theme.spacing(1),
   },
-  title: {
-    fontWeight: 'bold',
-  },
   gridListContainer: {
     width: 1000,
     flexWrap: 'wrap',

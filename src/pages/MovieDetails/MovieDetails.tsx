@@ -10,6 +10,7 @@ import MovieInfo from './MovieInfo';
 import Casts from './Casts';
 import Videos from './Videos';
 import Recommendations from './Recommendations';
+import Images from './Images';
 
 interface PathParams {
   id: string;
@@ -61,6 +62,9 @@ function MovieDetailInfo(props: MovieProps) {
             <Grid item xs={10}>
               <div>{movie.casts && movie.casts.length > 0 && <Casts casts={movie.casts} movieId={movie.id} />}</div>
               <div>{movie.videos && movie.videos.length > 0 && <Videos videos={movie.videos} />}</div>
+              <div>
+                <Images movie={movie} />
+              </div>
             </Grid>
             <Grid item xs={2}>
               <div>
@@ -81,10 +85,13 @@ export default function MovieDetails(props: RouteComponentProps<PathParams>) {
   const variables = { id: parseInt(id) };
   const fetchPolicy = 'cache-and-network';
   const { data, loading } = useQuery(queries.movieDetailQuery, { variables, fetchPolicy });
+  if (loading) {
+    window.scrollTo(0, 0);
+  }
   return (
     <>
-      {data && <MovieDetailInfo movie={data.movieDetail} loading={loading} />}
-      {!data && loading && <Loading />}
+      {!loading && data && <MovieDetailInfo movie={data.movieDetail} loading={loading} />}
+      {loading && <Loading />}
     </>
   );
 }
