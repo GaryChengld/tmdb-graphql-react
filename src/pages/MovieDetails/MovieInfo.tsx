@@ -35,7 +35,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     borderRadius: 0,
     boxShadow: 'none',
     paddingTop: theme.spacing(0),
-    paddingBottom: theme.spacing(1),
   },
   cardImage: {
     position: 'relative',

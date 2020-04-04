@@ -2,20 +2,22 @@ import React from 'react';
 import { Link as ReactLink } from 'react-router-dom';
 import { Box, GridList, Grid, GridListTile, Link, Typography, Card, CardContent, CardMedia } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-import { ImageSearch } from '@material-ui/icons';
 
 interface MovieProps {
   movie: any;
 }
 
-interface imagesProps {
+interface ImagesProps {
   smallImages: string[];
   images: string[];
+  title: string;
+  height: number;
+  cols: number;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    paddingTop: theme.spacing(2),
+    paddingTop: theme.spacing(3),
     paddingLeft: theme.spacing(2),
     width: '100%',
     display: 'flex',
@@ -38,11 +40,14 @@ const useStyles = makeStyles((theme: Theme) => ({
     width: 'auto',
     maxWidth: '100%',
     height: 'auto',
-  }
+  },
+  container: {
+    paddingBottom: theme.spacing(2),
+  },
 }));
 
-function Posters(props: imagesProps) {
-  const { smallImages, images } = props;
+function Imagelist(props: ImagesProps) {
+  const { smallImages, images, title, height, cols } = props;
   const classes = useStyles();
   return (
     <div className={classes.root}>
@@ -50,17 +55,19 @@ function Posters(props: imagesProps) {
         <Grid item xs={12}>
           <Box className={classes.header}>
             <Typography variant="h5" color="inherit" component="span">
-              Posters
+              {title}
             </Typography>
           </Box>
         </Grid>
         <Grid item xs={12}>
           <Grid container spacing={1}>
             <div className={classes.gridListContainer}>
-              <GridList cols={7.5} cellHeight={200} spacing={2} className={classes.gridList}>
-                {smallImages.map((posterPath: string) => (
+              <GridList cols={cols} cellHeight={height} spacing={2} className={classes.gridList}>
+                {smallImages.map((posterPath: string, index: number) => (
                   <GridListTile key={posterPath}>
-                    <img className={classes.img} src={posterPath} />
+                    <Link href={images[index]} target="_blank" rel="noopener">
+                      <img className={classes.img} src={posterPath} />
+                    </Link>
                   </GridListTile>
                 ))}
               </GridList>
@@ -73,9 +80,25 @@ function Posters(props: imagesProps) {
 }
 
 export default function Images(props: MovieProps) {
+  const classes = useStyles();
   const {
     movie: { smallImages, images },
   } = props;
 
-  return <>{smallImages.posters.length > 0 && <Posters smallImages={smallImages.posters} images={images.posters} />}</>;
+  return (
+    <div className={classes.container}>
+      {smallImages.posters.length > 0 && (
+        <Imagelist smallImages={smallImages.posters} images={images.posters} height={140} title="Posters" cols={10.5} />
+      )}
+      {smallImages.backdrops.length > 0 && (
+        <Imagelist
+          smallImages={smallImages.backdrops}
+          images={images.backdrops}
+          height={140}
+          title="Backdrops"
+          cols={3.5}
+        />
+      )}
+    </div>
+  );
 }

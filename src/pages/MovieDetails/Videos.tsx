@@ -18,7 +18,7 @@ interface VideoProps {
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     position: 'relative',
-    paddingTop: theme.spacing(2),
+    paddingTop: theme.spacing(3),
     paddingLeft: theme.spacing(2),
     display: 'flex',
     backgroundColor: 'transparent',
