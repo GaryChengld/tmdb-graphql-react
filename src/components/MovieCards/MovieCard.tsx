@@ -72,7 +72,7 @@ export default function MovieCard(props: MovieCardProps) {
   const [openVideo, setOpenVideo] = useState(false);
   const classes = useStyle();
   const { movie } = props;
-  const imageUrl = movie.posterPath ? movie.posterPath : '/not_found.png';  
+  const imageUrl = movie.posterPath ? movie.posterPath : '/not_found.png';
   return (
     <>
       <Card className={classes.root}>
@@ -94,7 +94,7 @@ export default function MovieCard(props: MovieCardProps) {
                 {utils.formatDate(movie.releaseDate)}
               </Typography>
             )}
-            {movie.genres.map((g: any) => (
+            {movie.genres && movie.genres.map((g: any) => (
               <Chip key={g.name} className={classes.clip} size="medium" label={g.name} variant="outlined" />
             ))}
           </CardContent>

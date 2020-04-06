@@ -189,7 +189,9 @@ export const movieCastQuery = gql`
       id
       title
       posterPath(size: L)
+      backdropPath
       releaseYear
+      voteAverage
       casts {
         creditId
         personId: id
@@ -203,9 +205,6 @@ export const movieCastQuery = gql`
         name
         job
         profilePath(size: L)
-      }
-      images {
-        backdrops
       }
     }
   }

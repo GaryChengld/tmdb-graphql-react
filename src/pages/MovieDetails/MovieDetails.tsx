@@ -1,7 +1,7 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { Container, Grid } from '@material-ui/core/';
-import { makeStyles, Theme } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import { useQuery } from '@apollo/react-hooks';
 
 import * as queries from '../../Queries';
@@ -21,7 +21,7 @@ interface MovieProps {
   loading?: boolean;
 }
 
-const useStyles = makeStyles((theme: Theme) => ({
+const useStyles = makeStyles(() => ({
   root: {
     flexGrow: 1,
     backgroundColor: 'rgba(60,60,60,0.6)',

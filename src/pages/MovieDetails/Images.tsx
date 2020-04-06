@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link as ReactLink } from 'react-router-dom';
-import { Box, GridList, Grid, GridListTile, Link, Typography, Card, CardContent, CardMedia } from '@material-ui/core';
+import { Box, GridList, Grid, GridListTile, Link, Typography } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
 interface MovieProps {
