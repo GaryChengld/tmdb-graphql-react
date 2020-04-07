@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link as ReactLink } from 'react-router-dom';
 import { RouteComponentProps } from 'react-router';
-import { Container, Grid, Card, Link, CardMedia, CardContent, Typography, Box } from '@material-ui/core/';
+import { Container, Grid, Card, Link, CardMedia, CardContent, Typography, Box, Avatar } from '@material-ui/core/';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useQuery } from '@apollo/react-hooks';
 
@@ -35,20 +35,13 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingTop: 200,
     paddingBottom: 40,
   },
-  credits: {
-    padding: theme.spacing(2),
-  },
   card: {
+    marginLeft: theme.spacing(2),
     width: 138,
     height: '100%',
     display: 'flex',
     flexDirection: 'column',
     backgroundColor: 'transparent',
-    transition: 'all 0.4s',
-    '&:hover': {
-      transform: 'scale(1.03)',
-      transition: 'all 0.4s',
-    },
   },
   cardMedia: {
     height: 175,
@@ -64,7 +57,17 @@ const useStyles = makeStyles((theme: Theme) => ({
     fontWeight: 'bold',
   },
   header: {
-    marginLeft: theme.spacing(1),
+    marginLeft: theme.spacing(2),
+  },
+  avatar: {
+    display: 'flex',
+    '& > *': {
+      marginTop: theme.spacing(0),
+      marginBottom: theme.spacing(0),
+      margin: theme.spacing(1),
+    },
+    marginTop: theme.spacing(0),
+    marginBottom: theme.spacing(0),
   },
 }));
 
@@ -100,7 +103,7 @@ function Casts(props: CreditsProps) {
   const { credits: casts } = props;
   const classes = useStyles();
   return (
-    <Grid container spacing={1}>
+    <Grid container spacing={2}>
       <Grid item xs={12}>
         <Box className={classes.header}>
           <Typography variant="h5" color="inherit" component="span">
@@ -125,7 +128,7 @@ function Crews(props: CreditsProps) {
   const { credits: crews } = props;
   const classes = useStyles();
   return (
-    <Grid container spacing={1}>
+    <Grid container spacing={2}>
       <Grid item xs={12}>
         <Box className={classes.header}>
           <Typography variant="h5" color="inherit" component="span">
@@ -134,13 +137,29 @@ function Crews(props: CreditsProps) {
         </Box>
       </Grid>
       <Grid item xs={12}>
-        <Grid container spacing={2}>
-          {crews.map((crew: any) => (
-            <Grid item key={crew.creditId} xs={12} md={6} lg={4}>
-              <Credit credit={crew} />
+        {crews.map((crew: any) => (
+          <Grid container key={crew.creditId} direction="row" alignItems="center" spacing={2}>
+            <Grid item xs={1}>
+              <Avatar src={crew.profilePath ? crew.profilePath : 'broken_image'} />
             </Grid>
-          ))}
-        </Grid>
+            <Grid item xs={3}>
+              <Link
+                component={ReactLink}
+                to={utils.getPersonDetailPath(crew.personId)}
+                variant="body1"
+                color="textPrimary"
+                underline="none"
+              >
+                {crew.name}
+              </Link>
+            </Grid>
+            <Grid item xs={8}>
+              <Typography variant="body1" color="textSecondary" component="span">
+                {crew.job}
+              </Typography>
+            </Grid>
+          </Grid>
+        ))}
       </Grid>
     </Grid>
   );
