@@ -65,7 +65,7 @@ function Imagelist(props: ImagesProps) {
                 {smallImages.map((posterPath: string, index: number) => (
                   <GridListTile key={posterPath}>
                     <Link href={images[index]} target="_blank" rel="noopener">
-                      <img className={classes.img} src={posterPath} />
+                      <img className={classes.img} src={posterPath} alt="" />
                     </Link>
                   </GridListTile>
                 ))}

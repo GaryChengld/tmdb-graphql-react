@@ -209,3 +209,37 @@ export const movieCastQuery = gql`
     }
   }
 `;
+
+export const personQuery = gql`
+  query person($id: Int!) {
+    person(id: $id) {
+      id
+      name
+      knownForDepartment
+      birthday
+      deathday
+      alsoKnownAs
+      biography
+      placeOfBirth
+      profilePath
+      movieCredits {
+        casts {
+          id
+          title
+          character
+        }
+        crews {
+          id
+          title
+          department
+          job
+        }
+      }
+      knownFor {
+        id
+        title
+        posterPath(size: L)
+      }
+    }
+  }
+`;
