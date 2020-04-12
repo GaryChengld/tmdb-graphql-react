@@ -1,14 +1,43 @@
 import React from 'react';
 import { RouteComponentProps } from 'react-router';
 import { useQuery } from '@apollo/react-hooks';
+import { Container, Grid } from '@material-ui/core/';
+import { makeStyles } from '@material-ui/core/styles';
 
-import { Loading, BackgroundImage } from '../../components';
+import { Loading } from '../../components';
 import * as queries from '../../Queries';
+import PersonCard from './PersonCard';
 
 interface PathParams {
   id: string;
 }
 
+interface PersonProps {
+  person: any;
+}
+
+const useStyles = makeStyles(() => ({
+  root: {
+    flexGrow: 1,
+    backgroundColor: 'rgba(60,60,60,0.6)',
+    backgroundBlendMode: 'color',
+  },
+  container: {
+    paddingTop: 40,
+    paddingBottom: 40,
+  },
+}));
+
+function PersonInfo(props: PersonProps) {
+  const { person } = props;
+  const classes = useStyles();
+
+  return (
+    <Container className={classes.container} maxWidth="lg">
+      {person.name}
+    </Container>
+  );
+}
 export default function PersonDetails(props: RouteComponentProps<PathParams>) {
   const id = props.match.params.id;
   const variables = { id: parseInt(id) };
@@ -18,9 +47,7 @@ export default function PersonDetails(props: RouteComponentProps<PathParams>) {
   return (
     <>
       {loading && <Loading />}
-      {data && (
-        <>{data.person.name}</>
-      )}
+      {data && <PersonInfo person={data.person} />}
     </>
   );
 }
