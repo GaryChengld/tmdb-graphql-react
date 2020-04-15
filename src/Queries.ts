@@ -240,6 +240,9 @@ export const personQuery = gql`
         title
         posterPath(size: L)
       }
+      images {
+        profiles
+      }
     }
   }
 `;
