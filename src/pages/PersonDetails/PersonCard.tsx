@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
-import { Link as ReactLink } from 'react-router-dom';
+import React from 'react';
+import { Card, CardContent, CardMedia, Typography } from '@material-ui/core/';
 import { makeStyles, Theme } from '@material-ui/core/styles';
-
-import * as utils from '../../CommonUtils';
 
 interface PersonProps {
   person: any;
@@ -11,7 +9,7 @@ interface PersonProps {
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     position: 'relative',
-    height: '100%',
+    height: 450,
     display: 'flex',
     backgroundColor: 'transparent',
     borderRadius: 0,
@@ -27,75 +25,55 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingTop: theme.spacing(0),
     paddingLeft: theme.spacing(0),
   },
-  playButton: {
-    position: 'absolute',
-    width: '100%',
-    top: '100%',
-    left: '50%',
-    transform: 'translate(-50%, -100%)',
-    textTransform: 'none',
-    fontWeight: 'bold',
-    '&:hover': {
-      color: theme.palette.secondary.main,
-    },
-  },
   cardDetails: {
     flexGrow: 1,
     flexDirection: 'column',
   },
   cardContent: {
-    padding: theme.spacing(2),
+    paddingLeft: theme.spacing(4),
+    paddingRight: theme.spacing(4),
+    paddingTop: theme.spacing(2),
   },
-  releaseYear: {
-    marginLeft: theme.spacing(1),
+  name: {
+    fontWeight: 'bold',
   },
-  originalTitle: {
-    marginTop: theme.spacing(0),
-    fontStyle: 'italic',
-  },
-  rate: {
-    marginTop: theme.spacing(1),
-  },
-  starIcon: {
-    marginTop: theme.spacing(2),
-    fontSize: 40,
-  },
-  genres: {
-    marginLeft: theme.spacing(1),
-  },
-  tagline: {
-    marginTop: theme.spacing(1),
-    color: theme.palette.secondary.main,
-    fontStyle: 'italic',
-  },
-  label: {
-    marginTop: theme.spacing(1),
+  biographyLabel: {
+    marginTop: theme.spacing(4),
     marginBottom: theme.spacing(0),
+    fontWeight: 'bold',
+  },
+  biographyText: {
+    marginTop: theme.spacing(2),
   },
   text: {
     marginTop: theme.spacing(0),
-  },
-  avatar: {
-    display: 'flex',
-    '& > *': {
-      marginTop: theme.spacing(0),
-      marginBottom: theme.spacing(0),
-      margin: theme.spacing(1),
-    },
-    marginTop: theme.spacing(0),
-    marginBottom: theme.spacing(0),
-  },
-  writers: {
-    marginTop: theme.spacing(0),
-    marginLeft: theme.spacing(2),
   },
 }));
 
 export default function PersonCard(props: PersonProps) {
   const { person } = props;
   const classes = useStyles();
+  const imagePath = person.profilePath ? person.profilePath : '/not_found.png';
   return (
     <>
+      <Card className={classes.root}>
+        <div className={classes.cardImage}>
+          <CardMedia className={classes.cardMedia} component="img" image={imagePath} />
+        </div>
+        <div className={classes.cardDetails}>
+          <CardContent className={classes.cardContent}>
+            <Typography className={classes.name} gutterBottom variant="h4">
+              {person.name}
+            </Typography>
+            <Typography className={classes.biographyLabel} gutterBottom variant="h6">
+              Biography
+            </Typography>
+            <Typography className={classes.biographyText} gutterBottom variant="subtitle1">
+              {person.biography}
+            </Typography>
+          </CardContent>
+        </div>
+      </Card>
     </>
   );
 }
