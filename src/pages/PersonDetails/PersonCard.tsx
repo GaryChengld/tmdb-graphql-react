@@ -62,11 +62,18 @@ export default function PersonCard(props: PersonProps) {
         </div>
         <div className={classes.cardDetails}>
           <CardContent className={classes.cardContent}>
-            <Typography className={classes.name} gutterBottom variant="h4">
+            <Typography className={classes.name} variant="h4">
               {person.name}
             </Typography>
-            <Typography className={classes.biographyLabel} gutterBottom variant="h6">
-              Biography
+            <Typography variant="subtitle1" color="textSecondary">
+              {person.alsoKnownAs
+                .filter((n: string) => n !== person.name)
+                .map((knowAs: string, index: number) => (
+                  <>
+                    {index > 0 && <>&nbsp;|&nbsp;</>}
+                    {knowAs}
+                  </>
+                ))}
             </Typography>
             <Typography className={classes.biographyText} gutterBottom variant="subtitle1">
               {person.biography}
