@@ -7,6 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Loading } from '../../components';
 import * as queries from '../../Queries';
 import PersonCard from './PersonCard';
+import PersonImages from './PersonImages';
 
 interface PathParams {
   id: string;
@@ -38,6 +39,11 @@ function PersonInfo(props: PersonProps) {
         <Grid item xs={12}>
           <PersonCard person={person} />
         </Grid>
+        {person.images.profiles.length > 1 && (
+          <Grid item xs={12}>
+            <PersonImages person={person} />
+          </Grid>
+        )}
       </Grid>
     </Container>
   );
