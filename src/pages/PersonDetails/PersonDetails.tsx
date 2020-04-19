@@ -39,11 +39,15 @@ function PersonInfo(props: PersonProps) {
         <Grid item xs={12}>
           <PersonCard person={person} />
         </Grid>
-        {person.images.profiles.length > 1 && (
-          <Grid item xs={12}>
+        <Grid item xs={3}>
+
+        </Grid>
+        <Grid item xs={9}>
+          {person.images.profiles.length > 1 && (
             <PersonImages person={person} />
-          </Grid>
-        )}
+          )}
+        </Grid>
+
       </Grid>
     </Container>
   );

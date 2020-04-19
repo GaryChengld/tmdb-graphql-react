@@ -9,7 +9,7 @@ interface PersonProps {
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     position: 'relative',
-    height: 450,
+    height: '100%',
     display: 'flex',
     backgroundColor: 'transparent',
     borderRadius: 0,
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   cardMedia: {
     width: 300,
-    height: '100%',
+    height: 450,
     paddingTop: theme.spacing(0),
     paddingLeft: theme.spacing(0),
   },

@@ -9,14 +9,16 @@ interface PersonProps {
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
     paddingTop: theme.spacing(4),
-    paddingBottom: theme.spacing(2),
+    paddingBottom: theme.spacing(4),
+    paddingLeft: theme.spacing(2),
+    paddingRight: theme.spacing(2),
     width: '100%',
     display: 'flex',
     backgroundColor: 'transparent',
     justifyContent: 'space-around',
   },
   gridListContainer: {
-    width: 1200,
+    width: 1000,
     flexWrap: 'wrap',
     overflow: 'hidden',
   },
@@ -50,7 +52,7 @@ export default function PersonImages(props: PersonProps) {
         <Grid item xs={12}>
           <Grid container spacing={1}>
             <div className={classes.gridListContainer}>
-              <GridList cols={7.5} cellHeight={225} spacing={8} className={classes.gridList}>
+              <GridList cols={6.5} cellHeight={225} spacing={8} className={classes.gridList}>
                 {images.profiles.map((profile: string) => (
                   <GridListTile key={profile}>
                     <Link href={profile} target="_blank" rel="noopener">
