@@ -10,15 +10,14 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
-    paddingLeft: theme.spacing(2),
-    paddingRight: theme.spacing(2),
+    paddingLeft: theme.spacing(4),
     width: '100%',
     display: 'flex',
     backgroundColor: 'transparent',
     justifyContent: 'space-around',
   },
   gridListContainer: {
-    width: 1000,
+    width: 980,
     flexWrap: 'wrap',
     overflow: 'hidden',
   },

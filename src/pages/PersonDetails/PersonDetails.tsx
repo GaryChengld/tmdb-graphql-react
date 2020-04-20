@@ -7,6 +7,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Loading } from '../../components';
 import * as queries from '../../Queries';
 import PersonCard from './PersonCard';
+import PersonProfile from './PersonProfile';
+import PersonInfo from './PersonInfo';
 import PersonImages from './PersonImages';
 
 interface PathParams {
@@ -29,25 +31,21 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-function PersonInfo(props: PersonProps) {
+function PersonView(props: PersonProps) {
   const { person } = props;
   const classes = useStyles();
 
   return (
     <Container className={classes.container} maxWidth="lg">
       <Grid container spacing={0}>
-        <Grid item xs={12}>
-          <PersonCard person={person} />
-        </Grid>
         <Grid item xs={3}>
-
+          <PersonCard person={person} />
+          <PersonInfo person={person} />
         </Grid>
         <Grid item xs={9}>
-          {person.images.profiles.length > 1 && (
-            <PersonImages person={person} />
-          )}
+          <PersonProfile person={person} />
+          {person.images.profiles.length > 1 && <PersonImages person={person} />}
         </Grid>
-
       </Grid>
     </Container>
   );
@@ -61,7 +59,7 @@ export default function PersonDetails(props: RouteComponentProps<PathParams>) {
   return (
     <>
       {loading && <Loading />}
-      {data && <PersonInfo person={data.person} />}
+      {data && <PersonView person={data.person} />}
     </>
   );
 }
