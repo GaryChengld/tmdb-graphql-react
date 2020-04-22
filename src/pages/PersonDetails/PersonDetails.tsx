@@ -9,6 +9,7 @@ import * as queries from '../../Queries';
 import PersonCard from './PersonCard';
 import PersonProfile from './PersonProfile';
 import PersonInfo from './PersonInfo';
+import KnownFor from './KnownFor';
 import PersonImages from './PersonImages';
 
 interface PathParams {
@@ -41,6 +42,7 @@ function PersonView(props: PersonProps) {
         <Grid item xs={3}>
           <PersonCard person={person} />
           <PersonInfo person={person} />
+          {person.knownFor.length > 0 && <KnownFor knownFor={person.knownFor} />}
         </Grid>
         <Grid item xs={9}>
           <PersonProfile person={person} />

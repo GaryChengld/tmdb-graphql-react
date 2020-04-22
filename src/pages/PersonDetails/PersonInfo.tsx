@@ -50,7 +50,6 @@ export default function PersonInfo(props: PersonProps) {
   const classes = useStyles();
   return (
     <div className={classes.root}>
-      {person.knownForDepartment && <LabelText label="Known For" content={person.knownForDepartment} />}
       {person.placeOfBirth && <LabelText label="Place of Birth" content={person.placeOfBirth} />}
       {person.birthday && <LabelText label="Birthday" content={utils.formatDate(person.birthday)} />}
       {person.deathday && <LabelText label="Date of Death" content={utils.formatDate(person.deathday)} />}
