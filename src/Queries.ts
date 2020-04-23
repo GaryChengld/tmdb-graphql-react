@@ -81,6 +81,19 @@ export const upcomingMoviesQuery = gql`
   ${listMovieFragment}
 `;
 
+export const searchMovieQuery = gql`
+  query searchMovie($query: String!, $page: Int!, $region: String) {
+    searchMovie(query: $query, page: $page, region: $region) {
+      page
+      totalPages
+      results {
+        ...ListMovieInfo
+      }
+    }
+  }
+  ${listMovieFragment}
+`;
+
 export const popularMoviesQuery = gql`
   query popularMovies($page: Int!, $region: String) {
     movieData: popularMovies(page: $page, region: $region) {
