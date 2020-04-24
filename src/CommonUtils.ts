@@ -42,6 +42,10 @@ export function getMovieCastPath(movieId: number) {
   return `/movie/cast/${movieId}`;
 }
 
+export function getSearchMoviePath(text: string) {
+  return `/movie/search/${text}`;
+}
+
 export function getPersonDetailPath(personId: number) {
   return `/person/${personId}`;
 }

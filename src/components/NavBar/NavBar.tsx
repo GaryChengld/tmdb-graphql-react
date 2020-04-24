@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router';
 import { Link as ReactLink } from 'react-router-dom';
 import { Theme, fade, makeStyles } from '@material-ui/core/styles';
 import {
@@ -21,6 +22,8 @@ import TheatersIcon from '@material-ui/icons/Theaters';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
 import WhatshotIcon from '@material-ui/icons/Whatshot';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
+
+import * as utils from '../../CommonUtils';
 
 interface SidebarProps {
   open: boolean;
@@ -174,12 +177,20 @@ function Sidebar(props: SidebarProps) {
   );
 }
 
-export default function NavBar() {
+function NavBar(props: RouteComponentProps) {
   const classes = useStyles();
   const [sidebar, setSidebar] = useState(false);
+  const [searchText, setSearchText] = useState('');
   const openSidebar = () => setSidebar(true);
   const closeSidebar = () => setSidebar(false);
-
+  const doSearch = (event: any) => {
+    event.preventDefault();
+    if (searchText.trim() !== '') {
+      props.history.push(utils.getSearchMoviePath(searchText.trim()));
+      window.scrollTo(0, 0);
+      setSearchText('');
+    }
+  };
   return (
     <div>
       <AppBar position="fixed" color="default">
@@ -199,14 +210,18 @@ export default function NavBar() {
             <div className={classes.searchIcon}>
               <SearchIcon />
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput,
-              }}
-              inputProps={{ 'aria-label': 'search' }}
-            />
+            <form onSubmit={doSearch}>
+              <InputBase
+                placeholder="Search…"
+                classes={{
+                  root: classes.inputRoot,
+                  input: classes.inputInput,
+                }}
+                inputProps={{ 'aria-label': 'search' }}
+                value={searchText}
+                onChange={(event: any) => setSearchText(event.target.value)}
+              />
+            </form>
           </div>
         </Toolbar>
       </AppBar>
@@ -215,3 +230,5 @@ export default function NavBar() {
     </div>
   );
 }
+
+export default withRouter(NavBar);

@@ -1,1 +1,1 @@
-export { NowPlayingMovies, UpcomingMovies, PopularMovies, TopRatedMovies } from './MovieListPages';
+export { NowPlayingMovies, UpcomingMovies, PopularMovies, TopRatedMovies, SearchMovies } from './MovieListPages';

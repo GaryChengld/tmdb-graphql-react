@@ -83,7 +83,7 @@ export const upcomingMoviesQuery = gql`
 
 export const searchMovieQuery = gql`
   query searchMovie($query: String!, $page: Int!, $region: String) {
-    searchMovie(query: $query, page: $page, region: $region) {
+    movieData: searchMovie(query: $query, page: $page, region: $region) {
       page
       totalPages
       results {

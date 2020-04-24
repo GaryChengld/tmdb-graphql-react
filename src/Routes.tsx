@@ -6,6 +6,7 @@ import {
   NowPlayingMovies,
   PopularMovies,
   TopRatedMovies,
+  SearchMovies,
   MovieDetails,
   MovieCast,
   PersonDetails,
@@ -20,6 +21,7 @@ export default function Routes() {
       <Route path="/movie/upcoming" component={UpcomingMovies} />
       <Route path="/movie/popular" component={PopularMovies} />
       <Route path="/movie/topRated" component={TopRatedMovies} />
+      <Route path="/movie/search/:text" component={SearchMovies} />
       <Route path="/movie/cast/:id" component={MovieCast} />
       <Route path="/movie/:id" component={MovieDetails} />
       <Route path="/person/:id" component={PersonDetails} />
