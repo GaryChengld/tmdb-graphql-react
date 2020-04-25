@@ -129,10 +129,7 @@ export const movieDetailQuery = gql`
       tagline
       imdbId
       originalLanguage {
-        englishName
-        name
-      }
-      spokenLanguages {
+        code
         englishName
         name
       }
