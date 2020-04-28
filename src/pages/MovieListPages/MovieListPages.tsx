@@ -23,12 +23,26 @@ interface SearchPathParams {
   text: string;
 }
 
+interface GenrePathParams {
+  genre: string;
+}
+
 function SearchMovies(props: RouteComponentProps<SearchPathParams>) {
   const text: string = props.match.params.text;
   const parentVariables = { query: text };
   return <QueryMovies query={queries.searchMovieQuery} parentVariables={parentVariables} title="Search Results" />;
 }
 
-const SearchMoviesWithRouter = withRouter(SearchMovies);
+function MoviesByGenre(props: RouteComponentProps<GenrePathParams>) {
+  const genreParam: string = props.match.params.genre;
+  const strs: string[] = genreParam.split('-');
+  const genreId: string = strs[0];
+  const genreName: string = strs[1];
+  const parentVariables = { genre: genreId };
+  return <QueryMovies query={queries.moviesByGenreQuery} parentVariables={parentVariables} title={genreName} />;
+}
 
-export { SearchMoviesWithRouter as SearchMovies };
+const SearchMoviesWithRouter = withRouter(SearchMovies);
+const MoviesByGenreWithRouter = withRouter(MoviesByGenre);
+
+export { SearchMoviesWithRouter as SearchMovies, MoviesByGenreWithRouter as MoviesByGenre };

@@ -46,6 +46,11 @@ export function getSearchMoviePath(text: string) {
   return `/movie/search/${text}`;
 }
 
+export function getMoviesByGenrePath(genre: any) {
+  const { id, name } = genre;
+  return `/movie/genre/${id}-${name}`;
+}
+
 export function getPersonDetailPath(personId: number) {
   return `/person/${personId}`;
 }

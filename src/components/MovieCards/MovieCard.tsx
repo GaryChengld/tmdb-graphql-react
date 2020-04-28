@@ -94,9 +94,12 @@ export default function MovieCard(props: MovieCardProps) {
                 {utils.formatDate(movie.releaseDate)}
               </Typography>
             )}
-            {movie.genres && movie.genres.map((g: any) => (
-              <Chip key={g.name} className={classes.clip} size="medium" label={g.name} variant="outlined" />
-            ))}
+            {movie.genres &&
+              movie.genres.map((g: any) => (
+                <Link key={g.name} component={ReactLink} to={utils.getMoviesByGenrePath(g)} underline="none">
+                  <Chip className={classes.clip} size="medium" label={g.name} variant="outlined" clickable />
+                </Link>
+              ))}
           </CardContent>
           <CardActions className={classes.controls} disableSpacing>
             {movie.trailer && (

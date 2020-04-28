@@ -120,6 +120,32 @@ export const topRatedMoviesQuery = gql`
   ${listMovieFragment}
 `;
 
+export const moviesByGenreQuery = gql`
+  query moviesByGenre($genre: String!, $page: Int!, $region: String) {
+    movieData: moviesByGenre(genre: $genre, page: $page, region: $region) {
+      page
+      totalPages
+      results {
+        ...ListMovieInfo
+      }
+    }
+  }
+  ${listMovieFragment}
+`;
+
+export const moviesByYearQuery = gql`
+  query moviesByYear($year: Int!, $page: Int!, $region: String) {
+    movieData: moviesByYear(year: $year, page: $page, region: $region) {
+      page
+      totalPages
+      results {
+        ...ListMovieInfo
+      }
+    }
+  }
+  ${listMovieFragment}
+`;
+
 export const movieDetailQuery = gql`
   query movieDetail($id: Int!) {
     movieDetail(id: $id) {
