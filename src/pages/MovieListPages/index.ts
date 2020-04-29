@@ -5,4 +5,5 @@ export {
   TopRatedMovies,
   SearchMovies,
   MoviesByGenre,
+  MoviesByYear,
 } from './MovieListPages';

@@ -8,6 +8,7 @@ import {
   TopRatedMovies,
   SearchMovies,
   MoviesByGenre,
+  MoviesByYear,
   MovieDetails,
   MovieCast,
   PersonDetails,
@@ -24,6 +25,7 @@ export default function Routes() {
       <Route path="/movie/topRated" component={TopRatedMovies} />
       <Route path="/movie/search/:text" component={SearchMovies} />
       <Route path="/movie/genre/:genre" component={MoviesByGenre} />
+      <Route path="/movie/year/:year" component={MoviesByYear} />
       <Route path="/movie/cast/:id" component={MovieCast} />
       <Route path="/movie/:id" component={MovieDetails} />
       <Route path="/person/:id" component={PersonDetails} />

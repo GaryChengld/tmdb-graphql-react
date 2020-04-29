@@ -27,6 +27,10 @@ interface GenrePathParams {
   genre: string;
 }
 
+interface YearPathParams {
+  year: string;
+}
+
 function SearchMovies(props: RouteComponentProps<SearchPathParams>) {
   const text: string = props.match.params.text;
   const parentVariables = { query: text };
@@ -42,7 +46,18 @@ function MoviesByGenre(props: RouteComponentProps<GenrePathParams>) {
   return <QueryMovies query={queries.moviesByGenreQuery} parentVariables={parentVariables} title={genreName} />;
 }
 
+function MoviesByYear(props: RouteComponentProps<YearPathParams>) {
+  const year: string = props.match.params.year;
+  const parentVariables = { year: parseInt(year) };
+  return <QueryMovies query={queries.moviesByYearQuery} parentVariables={parentVariables} title={year} />;
+}
+
 const SearchMoviesWithRouter = withRouter(SearchMovies);
 const MoviesByGenreWithRouter = withRouter(MoviesByGenre);
+const MoviesByYearWithRouter = withRouter(MoviesByYear);
 
-export { SearchMoviesWithRouter as SearchMovies, MoviesByGenreWithRouter as MoviesByGenre };
+export {
+  SearchMoviesWithRouter as SearchMovies,
+  MoviesByGenreWithRouter as MoviesByGenre,
+  MoviesByYearWithRouter as MoviesByYear,
+};

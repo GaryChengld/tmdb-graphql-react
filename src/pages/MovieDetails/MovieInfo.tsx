@@ -147,9 +147,14 @@ export default function MovieInfo(props: MovieProps) {
               <Typography gutterBottom variant="h4" component="span">
                 {title}
               </Typography>
-              <Typography className={classes.releaseYear} variant="h5" component="span" color="textSecondary">
+              <Link
+                variant="h6"
+                className={classes.releaseYear}
+                component={ReactLink}
+                to={utils.getMoviesByYearPath(movie.releaseYear)}
+              >
                 ({movie.releaseYear})
-              </Typography>
+              </Link>
               {showOriginalTitle && (
                 <Typography className={classes.originalTitle} variant="body1" color="textSecondary">
                   {originalTitle} (original title)
@@ -172,7 +177,9 @@ export default function MovieInfo(props: MovieProps) {
                   </Grid>
                   <Grid item>
                     {movie.genres.map((g: any) => (
-                      <Chip key={g.name} className={classes.genres} size="medium" label={g.name} variant="outlined" />
+                      <Link key={g.name} component={ReactLink} to={utils.getMoviesByGenrePath(g)} underline="none">
+                        <Chip className={classes.genres} size="medium" label={g.name} variant="outlined" clickable />
+                      </Link>
                     ))}
                   </Grid>
                 </Grid>

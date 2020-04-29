@@ -51,6 +51,10 @@ export function getMoviesByGenrePath(genre: any) {
   return `/movie/genre/${id}-${name}`;
 }
 
+export function getMoviesByYearPath(year: any) {
+  return `/movie/year/${year}`;
+}
+
 export function getPersonDetailPath(personId: number) {
   return `/person/${personId}`;
 }
