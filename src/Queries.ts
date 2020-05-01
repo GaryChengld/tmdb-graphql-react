@@ -264,11 +264,13 @@ export const personQuery = gql`
           title
           character
         }
-        crews {
-          id
-          title
+        crewGroups {
           department
-          job
+          crews {
+            id
+            title
+            job
+          }
         }
       }
       knownFor {
