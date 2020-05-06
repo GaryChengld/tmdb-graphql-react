@@ -1,9 +1,14 @@
 import React from 'react';
-import { Box, GridList, Grid, GridListTile, Link, Typography } from '@material-ui/core';
+import {Link, Typography, ExpansionPanel, ExpansionPanelDetails } from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 
 interface PersonCreditsProps {
   person: any;
+}
+
+interface CastsProps {
+  casts: any;
+  expanded: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) => ({
@@ -25,9 +30,23 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
+function Casts(props: CastsProps) {
+  return <></>;
+}
+
 export default function PersonCredits(props: PersonCreditsProps) {
   const { person } = props;
-  const classes = useStyles();
-
-  return <></>;
+  const {
+    knownForDepartment,
+    movieCredits: { casts, crewGroups },
+  } = person;
+  if (knownForDepartment === 'Acting') {
+    return (
+      <>
+        <Casts casts={casts} expanded={true} />
+      </>
+    );
+  } else {
+    return <></>;
+  }
 }

@@ -11,6 +11,7 @@ import PersonProfile from './PersonProfile';
 import PersonInfo from './PersonInfo';
 import KnownFor from './KnownFor';
 import PersonImages from './PersonImages';
+import PersonCredits from './PersonCredits';
 
 interface PathParams {
   id: string;
@@ -47,6 +48,7 @@ function PersonView(props: PersonProps) {
         <Grid item xs={9}>
           <PersonProfile person={person} />
           {person.images.profiles.length > 1 && <PersonImages person={person} />}
+          <PersonCredits person={person} />
         </Grid>
       </Grid>
     </Container>
