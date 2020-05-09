@@ -37,18 +37,12 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
   heading: {
     fontSize: theme.typography.pxToRem(15),
+    fontWeight: 'bold',
     flexBasis: '33.33%',
     flexShrink: 0,
   },
   grid: {
     width: '100%',
-  },
-  label: {
-    marginTop: theme.spacing(1),
-    marginBottom: theme.spacing(0),
-  },
-  text: {
-    marginTop: theme.spacing(0),
   },
 }));
 
@@ -76,10 +70,13 @@ function Casts(props: CastsProps) {
                     >
                       {cast.title}
                     </Link>
+                    <Typography variant="body1" color="textSecondary">
+                      {cast.character}
+                    </Typography>
                   </Grid>
                   <Grid item xs={4}>
-                    <Typography variant="body1" color="textSecondary" component="span">
-                      {cast.character}
+                    <Typography variant="body1" component="span">
+                      {cast.releaseYear}
                     </Typography>
                   </Grid>
                 </Grid>

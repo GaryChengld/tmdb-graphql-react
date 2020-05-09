@@ -262,6 +262,7 @@ export const personQuery = gql`
         casts {
           id
           title
+          releaseYear
           character
         }
         crewGroups {
@@ -269,6 +270,7 @@ export const personQuery = gql`
           crews {
             id
             title
+            releaseYear
             job
           }
         }
