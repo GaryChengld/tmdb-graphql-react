@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link as ReactLink } from 'react-router-dom';
 import {
   Link,
@@ -17,8 +17,10 @@ interface PersonCreditsProps {
   person: any;
 }
 
-interface CastsProps {
-  casts: any;
+interface CreditsProps {
+  header: string;
+  credits: any;
+  cast: boolean;
   expanded: boolean;
 }
 
@@ -28,7 +30,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     paddingBottom: theme.spacing(2),
     paddingLeft: theme.spacing(4),
     width: '100%',
-    display: 'flex',
     backgroundColor: 'transparent',
     justifyContent: 'space-around',
   },
@@ -46,62 +47,81 @@ const useStyles = makeStyles((theme: Theme) => ({
   },
 }));
 
-function Casts(props: CastsProps) {
+function Credits(props: CreditsProps) {
   const classes = useStyles();
-  const { expanded, casts } = props;
+  const { expanded, credits, header, cast } = props;
+  const [expand, setExpand] = useState(expanded);
   return (
-    <div className={classes.root}>
-      <ExpansionPanel expanded={expanded} className={classes.panel}>
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
-          <Typography className={classes.heading}>Acting</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              {casts.map((cast: any) => (
-                <Grid container key={cast.id} direction="row" alignItems="center" spacing={2}>
-                  <Grid item xs={8}>
-                    <Link
-                      component={ReactLink}
-                      to={utils.getMovieDetailPath(cast.id)}
-                      variant="body1"
-                      color="textPrimary"
-                      underline="none"
-                    >
-                      {cast.title}
-                    </Link>
-                    <Typography variant="body1" color="textSecondary">
-                      {cast.character}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={4}>
-                    <Typography variant="body1" component="span">
-                      {cast.releaseYear}
-                    </Typography>
-                  </Grid>
+    <ExpansionPanel className={classes.panel} expanded={expand} onChange={() => setExpand(!expand)}>
+      <ExpansionPanelSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panelActing-content"
+        id="panelActing-header"
+      >
+        <Typography className={classes.heading}>{header}</Typography>
+      </ExpansionPanelSummary>
+      <ExpansionPanelDetails>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            {credits.map((credit: any) => (
+              <Grid container key={credit.id} direction="row" alignItems="center" spacing={2}>
+                <Grid item xs={11}>
+                  <Link
+                    component={ReactLink}
+                    to={utils.getMovieDetailPath(credit.id)}
+                    variant="body1"
+                    color="textPrimary"
+                    underline="none"
+                  >
+                    {credit.title}
+                  </Link>
+                  <Typography variant="body1" color="textSecondary">
+                    {cast ? credit.character : credit.job}
+                  </Typography>
                 </Grid>
-              ))}
-            </Grid>
+                <Grid item xs={1}>
+                  <Typography variant="body1" component="span">
+                    {credit.releaseYear}
+                  </Typography>
+                </Grid>
+              </Grid>
+            ))}
           </Grid>
-        </ExpansionPanelDetails>
-      </ExpansionPanel>
-    </div>
+        </Grid>
+      </ExpansionPanelDetails>
+    </ExpansionPanel>
   );
 }
 
 export default function PersonCredits(props: PersonCreditsProps) {
   const { person } = props;
+  const classes = useStyles();
   const {
     knownForDepartment,
     movieCredits: { casts, crewGroups },
   } = person;
-  if (knownForDepartment === 'Acting') {
-    return (
-      <>
-        <Casts casts={casts} expanded={true} />
-      </>
-    );
-  } else {
-    return <></>;
-  }
+
+  return (
+    <>
+      <div className={classes.root}>
+        {casts && casts.length > 0 && (
+          <Credits
+            credits={casts}
+            expanded={knownForDepartment === 'Acting'}
+            cast={knownForDepartment === 'Acting'}
+            header="Acting"
+          />
+        )}
+        {crewGroups.map((g: any) => (
+          <Credits
+            key={g.department}
+            header={g.department}
+            credits={g.crews}
+            cast={knownForDepartment !== 'Acting'}
+            expanded={knownForDepartment === g.department}
+          />
+        ))}
+      </div>
+    </>
+  );
 }
